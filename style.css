@@ -48,6 +48,20 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .whygo .tagline2 { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
 .whygo .tagline2 i { font: 500 11px/1 var(--sans); font-style: normal; letter-spacing: .08em; color: var(--gold);
                      border: 1px solid rgba(194,161,92,.5); border-radius: 2px; padding: 5px 8px; }
+.worthy { margin: 0 0 46px; padding: 0 0 38px; border-bottom: 1px solid var(--line); }
+.ask { margin: 42px 0 0; padding: 26px 28px; border: 1px solid var(--line); background: var(--panel); }
+.ask h2 { margin: 2px 0 6px; }
+.askrow { display: flex; gap: 10px; margin: 14px 0 0; }
+.askrow textarea { flex: 1; font: 400 15px/1.7 var(--sans); color: var(--ink); background: var(--ground);
+                   border: 1px solid var(--line); padding: 12px 14px; resize: vertical; }
+.askrow textarea:focus-visible { outline: 1px solid var(--gold); }
+.askrow button { font: 700 14px/1 var(--sans); letter-spacing: .08em; color: #17140c; background: var(--gold);
+                 border: 0; padding: 0 22px; cursor: pointer; }
+.askrow button[disabled] { opacity: .5; cursor: default; }
+.ask .answer:not(:empty) { margin: 18px 0 0; padding: 16px 18px; border-left: 2px solid var(--gold);
+                           font: 400 15px/1.95 var(--sans); color: var(--ink-2); white-space: pre-wrap; }
+.ask .cards { margin-top: 18px; }
+@media (max-width: 640px) { .ask { padding: 20px 16px; } .askrow { flex-direction: column; } .askrow button { padding: 14px; } }
 .examples { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
 .ex { font: 400 12px/1 var(--sans); color: var(--ink-3); background: transparent; border: 1px dashed var(--line);
       border-radius: 999px; padding: 7px 12px; cursor: pointer; }
