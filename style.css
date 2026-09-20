@@ -56,6 +56,8 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .whygo { margin: 22px 0 0; padding: 18px 20px; border-left: 2px solid var(--gold); background: rgba(194,161,92,.06); }
 .whygo .reason { margin: 4px 0 0; font: 500 clamp(15px,2.2vw,17px)/1.85 var(--serif); color: var(--ink); }
 .whygo .tagline2 { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.whygo .tagline2 a { text-decoration: none; }
+.whygo .tagline2 a:hover i { border-color: var(--gold); background: var(--gold-soft); }
 .whygo .tagline2 i { font: 500 11px/1 var(--sans); font-style: normal; letter-spacing: .08em; color: var(--gold);
                      border: 1px solid rgba(194,161,92,.5); border-radius: 2px; padding: 5px 8px; }
 .worthy { margin: 0 0 46px; padding: 0 0 38px; border-bottom: 1px solid var(--line); }
