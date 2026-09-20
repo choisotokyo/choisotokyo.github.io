@@ -15,6 +15,7 @@ header.site { position: sticky; top: 0; z-index: 5; background: rgba(12,12,13,.9
 header.site .bar { max-width: 1060px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
 header.site .logo { font: 700 18px/1 var(--serif); letter-spacing: .14em; text-decoration: none; }
 header.site nav { display: flex; gap: 18px; font-size: 12px; letter-spacing: .1em; color: var(--ink-2); }
+header.site nav a { white-space: nowrap; }
 header.site nav a { text-decoration: none; }
 header.site nav a:hover { color: var(--gold); }
 
@@ -190,6 +191,11 @@ footer.site .ftag { color: var(--ink-3); font-size: 12px; letter-spacing: .08em;
 footer.site .note { color: var(--ink-3); font-size: 11px; line-height: 2; max-width: 62ch; margin: 0 auto; }
 
 @media (max-width: 640px) {
+  /* ナビは折り返さず横に流す（3行に割れて、店名より場所を取っていた）*/
+  header.site .bar { flex-wrap: nowrap; align-items: center; gap: 14px; padding: 11px 20px; }
+  header.site .logo { font-size: 16px; flex: none; }
+  header.site nav { gap: 16px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  header.site nav::-webkit-scrollbar { display: none; }
   .cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 24px 14px; }
   .card .nm { font-size: 15px; }
   .card .hook { font-size: 12px; }
