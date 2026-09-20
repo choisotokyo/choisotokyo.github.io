@@ -139,6 +139,12 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .whysec.near h2 { font-size: 17px; }
 .whysec h2 { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
 @media (max-width: 640px) { .bars .row { grid-template-columns: 7.5em 1fr 2.8em; font-size: 12px; } }
+.pn { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 42px 0 0; padding-top: 24px; border-top: 1px solid var(--line); }
+.pn a { text-decoration: none; display: block; padding: 12px 14px; border: 1px solid var(--line); border-radius: 2px; }
+.pn a:hover { border-color: var(--gold); }
+.pn a.n { text-align: right; }
+.pn span { display: block; font: 11px/1 var(--sans); letter-spacing: .12em; color: var(--ink-3); margin-bottom: 6px; }
+.pn b { font: 500 14px/1.5 var(--serif); color: var(--ink); }
 [hidden] { display: none !important; }
 .more { display: block; margin: 34px auto 0; font: 12px/1 var(--sans); letter-spacing: .16em; color: var(--ink-2);
   background: transparent; border: 1px solid var(--line); padding: 14px 26px; cursor: pointer; }
