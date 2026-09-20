@@ -40,6 +40,20 @@ section { padding-block: 56px 0; }
 .search input::placeholder { color: var(--ink-3); }
 input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
 .count { color: var(--ink-3); font-size: 12px; letter-spacing: .1em; margin: 10px 0 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.tags i { font: 500 10.5px/1 var(--sans); font-style: normal; letter-spacing: .06em; color: var(--gold);
+          border: 1px solid rgba(194,161,92,.45); border-radius: 2px; padding: 4px 7px; }
+.whygo { margin: 22px 0 0; padding: 18px 20px; border-left: 2px solid var(--gold); background: rgba(194,161,92,.06); }
+.whygo .reason { margin: 4px 0 0; font: 500 clamp(15px,2.2vw,17px)/1.85 var(--serif); color: var(--ink); }
+.whygo .tagline2 { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.whygo .tagline2 i { font: 500 11px/1 var(--sans); font-style: normal; letter-spacing: .08em; color: var(--gold);
+                     border: 1px solid rgba(194,161,92,.5); border-radius: 2px; padding: 5px 8px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 0; }
+.chip { font: 500 12px/1 var(--sans); letter-spacing: .06em; color: var(--ink-2); background: transparent;
+        border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.chip:hover { border-color: var(--gold); color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #17140c; }
+section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(--ink-3); margin-left: 12px; }
 .sec-lead { color: var(--ink-2); font-size: 14px; margin: -8px 0 20px; max-width: 60ch; }
 
 /* カード */
@@ -51,6 +65,11 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .card .noph { display: grid; place-items: center; height: 100%; color: var(--ink-3); font-size: 12px; letter-spacing: .1em; }
 .card .badge { position: absolute; top: 10px; left: 10px; background: rgba(12,12,13,.86); color: var(--gold);
   border: 1px solid var(--gold-soft); font: 500 11px/1 var(--sans); letter-spacing: .1em; padding: 5px 8px; }
+.card .badge, .badge { font: 700 11px/1 var(--sans); letter-spacing: .08em; padding: 5px 8px; border-radius: 2px; }
+.card .mypick { position: absolute; top: 10px; right: 10px; color: var(--gold); font-size: 15px; text-shadow: 0 1px 4px rgba(0,0,0,.7); }
+.store .grades { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; }
+.store .mypick.inline { color: var(--gold); font-size: 12px; letter-spacing: .08em; }
+.store .rankno { font-size: 12px; color: var(--ink-3); letter-spacing: .06em; }
 .card .kicker { font-size: 11px; letter-spacing: .14em; color: var(--gold); margin-top: 14px; }
 .card .nm { font: 700 17px/1.6 var(--serif); letter-spacing: .04em; margin-top: 4px; }
 .card a:hover .nm { color: var(--gold); }
