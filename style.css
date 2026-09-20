@@ -79,6 +79,18 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
 .trivia ul { margin: 0; padding-left: 1.3em; }
 .trivia li { margin-bottom: 10px; color: var(--ink-2); }
+.voice { margin: 40px 0 0; padding: 22px 24px; background: var(--panel); border: 1px solid var(--line); }
+.voice h2 { margin: 2px 0 14px; }
+.voice .scores { display: flex; flex-wrap: wrap; gap: 18px; margin: 0 0 14px; }
+.voice .sc { display: flex; align-items: baseline; gap: 6px; }
+.voice .sc b { font: 700 22px/1 var(--serif); color: var(--gold); font-variant-numeric: tabular-nums; }
+.voice .sc em { font-style: normal; font-size: 11px; letter-spacing: .08em; color: var(--ink-3); }
+.voice .vhead { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+.voice .vhead span { font-weight: 700; color: var(--ink); }
+.voice .vpoints { margin: 0; padding-left: 1.2em; }
+.voice .vpoints li { margin-bottom: 9px; color: var(--ink-2); line-height: 1.9; }
+.voice .vfoot { margin: 14px 0 0; font-size: 12px; color: var(--ink-3); }
+@media (max-width: 640px) { .voice { padding: 18px 16px; } .voice .scores { gap: 14px; } }
 .facts { border-collapse: collapse; width: 100%; margin-top: 48px; }
 .facts th { text-align: left; color: var(--gold); font: 500 11px/2.2 var(--sans); letter-spacing: .14em; width: 8em; padding: 12px 14px 12px 0; vertical-align: top; }
 .facts td { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
