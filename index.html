@@ -4,15 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>チョイソの店帳｜行った店1362軒の記録</title>
-<meta name="description" content="6年ぶん、実際に行った店だけの記録。東京を中心に1362店。ジャンル・街から探せます。">
-<meta property="og:title" content="チョイソの店帳｜行った店1362軒の記録">
-<meta property="og:description" content="6年ぶん、実際に行った店だけの記録。東京を中心に1362店。ジャンル・街から探せます。">
-<meta property="og:type" content="website">
+<meta name="description" content="6年かけて歩いた店の記録。東京を中心に1362店。ジャンル・街から探せます。">
+<meta name="theme-color" content="#0c0c0d">
 
+<meta property="og:title" content="チョイソの店帳｜行った店1362軒の記録">
+<meta property="og:description" content="6年かけて歩いた店の記録。東京を中心に1362店。ジャンル・街から探せます。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="チョイソの店帳">
+<meta property="og:locale" content="ja_JP">
+
+<meta property="og:image" content="img/T0916.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/T0916.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="style.css">
+
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"チョイソの店帳","description":"6年かけて歩いた店の記録","inLanguage":"ja"}]</script>
 </head>
 <body>
 <header class="site">
@@ -23,21 +34,21 @@
 </header>
 <main>
 <section class="hero">
-  <div class="heroPhotos"><img src="img/T1718.jpg" alt=""  width="960" height="720"><img src="img/T0507.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T0702.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T1015.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T1479.jpg" alt="" loading="lazy" width="960" height="720"></div>
+  <div class="heroPhotos"><img src="img/T0916.jpg" alt=""  width="960" height="720"><img src="img/T1295.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T1015.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T0507-2.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T1203.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T1064.jpg" alt="" loading="lazy" width="960" height="720"><img src="img/T0662.jpg" alt="" loading="lazy" width="960" height="720"></div>
   <div class="heroText">
     <p class="eyebrow">TOKYO · 1362 RESTAURANTS</p>
     <h1>チョイソの店帳</h1>
-    <p class="tagline">6年ぶん、実際に行った店だけの記録。<br>点数や世間の評判は、参考として添えているだけです。</p>
+    <p class="tagline">6年かけて、1362軒。<br>全部、自分の足で行った店です。</p>
   </div>
 </section>
 
 <section class="search">
-  <input type="search" id="q" placeholder="ふつうの言葉で書いてください（例: 恵比寿で3000円くらいのつけ麺）" autocomplete="off" aria-label="店を探す">
-  <p class="examples"><button type="button" class="ex">恵比寿でつけ麺</button><button type="button" class="ex">3000円くらいで焼肉</button><button type="button" class="ex">都心でわざわざ行く価値がある店</button><button type="button" class="ex">土地に属している店</button></p>
+  <input type="search" id="q" placeholder="例: 恵比寿で3000円くらいのつけ麺" autocomplete="off" aria-label="店を探す">
+  <p class="examples"><button type="button" class="ex">恵比寿でつけ麺</button><button type="button" class="ex">3000円くらいで焼肉</button><button type="button" class="ex">都心でわざわざ行く価値がある店</button><button type="button" class="ex">その土地の味</button></p>
   <p class="how" id="how"></p>
   <p class="filters">
     <button type="button" class="chip" data-f="理由" aria-pressed="true">わざわざ行く価値がある</button>
-    <button type="button" class="chip" data-f="推し">自分で選んだ店</button>
+    <button type="button" class="chip" data-f="推し">また行きたい店</button>
     <button type="button" class="chip" data-f="全部">全部見る</button>
   </p>
   <p class="count" id="count"></p>
@@ -45,7 +56,7 @@
 <section class="ask" id="askBox" hidden>
   <p class="eyebrow">ASK</p>
   <h2>この店帳に聞く</h2>
-  <p class="sec-lead">言葉にしにくい探しものは、そのまま書いてください。この店帳に記録されていることだけで答えます。</p>
+  <p class="sec-lead">検索ではうまく出てこない聞き方でも大丈夫です。答えは、この店帳にある記録だけから作ります。</p>
   <div class="askrow">
     <textarea id="aq" rows="2" placeholder="例: 雨の日にひとりで落ち着ける店は？"></textarea>
     <button id="ab">聞く</button>
@@ -60,12 +71,12 @@
 
 <section id="star">
   <p class="eyebrow">MY PICKS</p>
-  <h2>自分で選んだ店<span class="n">141軒</span></h2>
-  <p class="sec-lead">点数とは関係なく、また行きたいと思った店。</p>
+  <h2>また行きたい店<span class="n">141軒</span></h2>
+  <p class="sec-lead">点数とは関係なく、自分がもう一度行きたいと思った店。</p>
   <ul class="cards"><li class="card">
   <a href="s/T1718.html">
     <span class="ph"><img src="img/T1718.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">コーヒー　新宿三丁目</span>
     <span class="nm">AALIYA COFFEE ROASTERS</span>
     <span class="hook">37年続く本店譲りのフレンチトーストを並ばず味わえる</span>
@@ -74,7 +85,7 @@
 </li><li class="card">
   <a href="s/T0324.html">
     <span class="ph"><img src="img/T0324.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">二郎系(直系)　ひばりヶ丘</span>
     <span class="nm">ラーメン二郎 ひばりヶ丘駅前店</span>
     <span class="hook">笑顔の店主が迎える、二郎初心者にも入りやすい直系店</span>
@@ -83,7 +94,7 @@
 </li><li class="card">
   <a href="s/T0220.html">
     <span class="ph"><img src="img/T0220.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">家系　本厚木駅</span>
     <span class="nm">厚木家</span>
     <span class="hook">家系総本山「吉村家」創業者の実子が営む直系の一杯</span>
@@ -92,7 +103,7 @@
 </li><li class="card">
   <a href="s/T0752.html">
     <span class="ph"><img src="img/T0752.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">つけ麺　新小岩</span>
     <span class="nm">麺屋 一燈</span>
     <span class="hook">フレンチ出身の店主が42歳で始めた濃厚魚介豚骨つけ麺</span>
@@ -101,7 +112,7 @@
 </li><li class="card">
   <a href="s/T1586.html">
     <span class="ph"><img src="img/T1586.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">塩　浅草橋</span>
     <span class="nm">饗 くろ㐂(もてなし くろき)</span>
     <span class="hook">料亭やイタリアンの総料理長経験を持つ店主の塩そば</span>
@@ -110,7 +121,7 @@
 </li><li class="card">
   <a href="s/T1689.html">
     <span class="ph"><img src="img/T1689.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">煮干し・魚介　荻窪</span>
     <span class="nm">there is ramen</span>
     <span class="hook">開業1年でミシュランのビブグルマンを獲得した花びらチャーシュー</span>
@@ -119,7 +130,7 @@
 </li><li class="card">
   <a href="s/T1134.html">
     <span class="ph"><img src="img/T1134.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">まぜそば・油そば　本郷三丁目</span>
     <span class="nm">中華蕎麦にし乃</span>
     <span class="hook">メニューは2種類のみ、生姜香る肉厚ワンタン入りの中華そば</span>
@@ -128,7 +139,7 @@
 </li><li class="card">
   <a href="s/T0858.html">
     <span class="ph"><img src="img/T0858.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">鶏白湯　大崎広小路駅</span>
     <span class="nm">手打ち正麺 Hachimitsu（八光）</span>
     <span class="hook">注文後に手でこね切る自家製麺と貝出汁のワンタン</span>
@@ -137,7 +148,7 @@
 </li><li class="card">
   <a href="s/T0916.html">
     <span class="ph"><img src="img/T0916.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">醤油・中華そば　大口駅</span>
     <span class="nm">中華そば 髙野</span>
     <span class="hook">元美容師の店主が作る、昆布水に浸した自家製麺の中華そば</span>
@@ -146,7 +157,7 @@
 </li><li class="card">
   <a href="s/T0638.html">
     <span class="ph"><img src="img/T0638.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">二郎系(直系)　京王堀之内駅</span>
     <span class="nm">ラーメン二郎 八王子野猿街道店2</span>
     <span class="hook">父も二郎系店主だった、父子二代にわたる直系二郎</span>
@@ -155,7 +166,7 @@
 </li><li class="card">
   <a href="s/T0924.html">
     <span class="ph"><img src="img/T0924.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">つけ麺　東十条</span>
     <span class="nm">燦燦斗（さんさんと）</span>
     <span class="hook">1日2時間半だけの営業、寺子屋仕込みのつけ麺</span>
@@ -164,7 +175,7 @@
 </li><li class="card">
   <a href="s/T1676.html">
     <span class="ph"><img src="img/T1676.jpg" alt="" loading="lazy" width="640" height="480">
-      <span class="mypick" title="自分で選んだ店">★</span></span>
+      <span class="mypick" title="また行きたい店">★</span></span>
     <span class="kicker">家系　白楽駅</span>
     <span class="nm">ラーメン 末廣家</span>
     <span class="hook">吉村家直系、吊るし焼きチャーシューが看板の家系</span>
@@ -175,114 +186,114 @@
 
 <section id="pickup">
   <p class="eyebrow">PICK UP</p>
-  <h2>今日はここでもいい</h2>
+  <h2>今日はこの12軒から</h2>
   <ul class="cards"><li class="card">
-  <a href="s/T1550.html">
-    <span class="ph"><img src="img/T1550.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0096.html">
+    <span class="ph"><img src="img/T0096.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">中華料理　旭橋駅</span>
-    <span class="nm">燕郷房（ヤンキョウファン）</span>
-    <span class="hook">食べログ百名店に選ばれた四川風麻婆豆腐と担々麺</span>
-    <span class="price">夜 ¥3,000～¥3,999</span>
+    <span class="kicker">焼き鳥　新宿三丁目</span>
+    <span class="nm">新宿 今井屋本店</span>
+    <span class="hook">約100項目の認定試験に合格した職人だけが焼く比内地鶏</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥5,000～¥5,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1395.html">
-    <span class="ph"><img src="img/T1395.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0331.html">
+    <span class="ph"><img src="img/T0331.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">うどん・ほうとう　五十鈴川駅</span>
-    <span class="nm">ふくすけ（おかげ横丁）</span>
-    <span class="hook">江戸時代の人気うどん屋にちなむ店名、三重県産小麦の伊勢うどん</span>
+    <span class="kicker">アイス・ジェラート　自由が丘</span>
+    <span class="nm">AmiCono JIYUGAOKA（アミコーノ）</span>
+    <span class="hook">イタリア修行の店主が作る産地直送素材の日替わりジェラート</span>
     <span class="price">昼 ～¥999　夜 ～¥999</span>
   </a>
 </li><li class="card">
-  <a href="s/T0568.html">
-    <span class="ph"><img src="img/T0568.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0587.html">
+    <span class="ph"><img src="img/T0587.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">ハンバーガー　渋谷</span>
-    <span class="nm">Reg-On Diner 渋谷本店</span>
-    <span class="hook">名店で修行した店主が作る秘伝BBQソースのABCバーガー</span>
+    <span class="kicker">うどん・ほうとう　武蔵溝ノ口駅／溝の口駅</span>
+    <span class="nm">うどんと串揚げ 路じ 本店</span>
+    <span class="hook">じゃがいもと生クリームで仕上げる、白いカレーうどん</span>
     <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1094.html">
-    <span class="ph"><img src="img/T1094.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0412.html">
+    <span class="ph"><img src="img/T0412.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">アイス・ジェラート　江ノ電江ノ島駅</span>
-    <span class="nm">ROCKREEM gelato</span>
-    <span class="hook">人気1位はいちごとチーズのミルキーチーズいちご</span>
+    <span class="kicker">うどん・ほうとう　自由が丘</span>
+    <span class="nm">カレーうどん 千吉 自由が丘店</span>
+    <span class="hook">開発にタモリが関わったと語り継がれる名物カレーうどん</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T1717.html">
+    <span class="ph"><img src="img/T1717.jpg" alt="" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">ベーカリー　伊勢市駅（車約5分）</span>
+    <span class="nm">COQUELICOT ROUGE（コクリコルージュ）</span>
+    <span class="hook">厳選バターを使い分けて焼く、SNSで話題のカラフルなクロワッサン</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T1457.html">
+    <span class="ph"><img src="img/T1457.jpg" alt="" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">スイーツ　福俵駅</span>
+    <span class="nm">たぶん…世界一小さいチョコレート工場</span>
+    <span class="hook">米菓の老舗が手がける工場直売のチョコシェイク</span>
     <span class="price">昼 ～¥999　夜 ～¥999</span>
   </a>
 </li><li class="card">
-  <a href="s/T0433.html">
-    <span class="ph"><img src="img/T0433.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0347.html">
+    <span class="ph"><img src="img/T0347.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">ケーキ・パフェ　来宮駅</span>
-    <span class="nm">住吉屋 熱海本店</span>
-    <span class="hook">Kiriのクリームチーズ使用、口でとろけるチーズケーキ</span>
+    <span class="kicker">スイーツ　国仲</span>
+    <span class="nm">なかゆくい商店</span>
+    <span class="hook">揚げたてのさたぱんびんに冷たいアイスをのせる伊良部島の郷土スイーツ</span>
     <span class="price">昼 ～¥999　夜 ～¥999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1042.html">
-    <span class="ph"><img src="img/T1042.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0822.html">
+    <span class="ph"><img src="img/T0822.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
     <span class="kicker">カフェ　小田急片瀬江ノ島駅</span>
-    <span class="nm">LONCAFE 湘南江の島本店</span>
-    <span class="hook">日本初のフレンチトースト専門店として2003年に元祖開業した</span>
+    <span class="nm">SUNCAFE PARADISE（サンカフェパラダイス）</span>
+    <span class="hook">オーナー手作りのトレーラーハウスで海を感じるガパオ風ライス</span>
     <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1459.html">
-    <span class="ph"><img src="img/T1459.jpg" alt="" loading="lazy" width="640" height="480">
+  <a href="s/T0781.html">
+    <span class="ph"><img src="img/T0781.jpg" alt="" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">イタリアン　恵比寿駅</span>
-    <span class="nm">ALMA（アルマ）</span>
-    <span class="hook">三陸の魚介が毎日直送される東北出身シェフのイタリアン</span>
-    <span class="price">昼 ¥2,000～¥2,999　夜 ¥8,000～¥9,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1616.html">
-    <span class="ph"><img src="img/T1616.jpg" alt="" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">和菓子　箱根湯本駅</span>
-    <span class="nm">北条 三福だんご</span>
-    <span class="hook">香ばしい黒だんごに甘辛醤油だれをからめた一本</span>
-    <span class="price">昼 ～¥999　夜 ～¥999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T0457.html">
-    <span class="ph"><img src="img/T0457.jpg" alt="" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">スイーツ　二子玉川</span>
-    <span class="nm">シナボン／シアトルズベストコーヒー 二子玉川ライズS.C.店</span>
-    <span class="hook">一度日本撤退後に再上陸したシナモンロール専門店</span>
-    <span class="price">昼 ～¥999　夜 ～¥999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T0175.html">
-    <span class="ph"><img src="img/T0175.jpg" alt="" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">アイス・ジェラート　渋谷</span>
-    <span class="nm">KITH TREATS TOKYO（MIYASHITA PARK店）</span>
-    <span class="hook">NY発Kith創業者が発案したシリアル&amp;アイスのバー</span>
-    <span class="price">昼 ～¥999　夜 ～¥999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1583.html">
-    <span class="ph"><img src="img/T1583.jpg" alt="" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">カフェ　表参道駅</span>
-    <span class="nm">i2 cafe (アイツーカフェ)</span>
-    <span class="hook">フルーツサンド店の姉妹店が出す、オーブン焼きのダッチベイビー</span>
-    <span class="price">昼 ¥2,000～¥2,999　夜 ¥2,000～¥2,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1204.html">
-    <span class="ph"><img src="img/T1204.jpg" alt="" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">天ぷら・天丼　川井</span>
-    <span class="nm">一心亭（川井）</span>
-    <span class="hook">卵と山芋をつなぎにした素朴な手打ちそばと山菜天ぷら</span>
+    <span class="kicker">つけ麺　新橋駅</span>
+    <span class="nm">麺屋 周郷</span>
+    <span class="hook">高圧釜で骨まで炊き上げた濃厚豚骨魚介つけ麺</span>
     <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0592.html">
+    <span class="ph"><img src="img/T0592.jpg" alt="" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">天ぷら・天丼　銀座</span>
+    <span class="nm">銀座ハゲ天 銀座本店</span>
+    <span class="hook">頭髪の薄かった初代店主にちなむ店名、薄衣とごま油で揚げる天丼</span>
+    <span class="price">昼 ¥3,000～¥3,999　夜 ¥6,000～¥7,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0317.html">
+    <span class="ph"><img src="img/T0317.jpg" alt="" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">天ぷら・天丼　恵比寿駅</span>
+    <span class="nm">香川一福 恵比寿店</span>
+    <span class="hook">ビブグルマン3年連続、打ちたてのノビのあるコシの讃岐うどん</span>
+    <span class="price">昼 ～¥999　夜 ～¥999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0719.html">
+    <span class="ph"><img src="img/T0719.jpg" alt="" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">アイス・ジェラート　六本木一丁目</span>
+    <span class="nm">セガフレード・ザネッティ・エスプレッソ 六本木ティーキューブ店</span>
+    <span class="hook">ブラジル自社農園の豆を自社焙煎するエスプレッソ</span>
+    <span class="price">昼 ～¥999　夜 ～¥999</span>
   </a>
 </li></ul>
 </section>
@@ -297,6 +308,12 @@
   <p class="eyebrow">BY TOWN</p>
   <h2>街から</h2>
   <ul class="tags"><li><a href="a/%E6%81%B5%E6%AF%94%E5%AF%BF.html">恵比寿<span>93</span></a></li><li><a href="a/%E6%B8%8B%E8%B0%B7.html">渋谷<span>55</span></a></li><li><a href="a/%E9%BA%BB%E5%B8%83%E5%8D%81%E7%95%AA.html">麻布十番<span>46</span></a></li><li><a href="a/%E8%A1%A8%E5%8F%82%E9%81%93%E3%83%BB%E9%9D%92%E5%B1%B1.html">表参道・青山<span>39</span></a></li><li><a href="a/%E4%B8%AD%E7%9B%AE%E9%BB%92.html">中目黒<span>37</span></a></li><li><a href="a/%E4%B8%89%E8%BB%92%E8%8C%B6%E5%B1%8B.html">三軒茶屋<span>36</span></a></li><li><a href="a/%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98.html">自由が丘<span>29</span></a></li><li><a href="a/%E5%85%AD%E6%9C%AC%E6%9C%A8.html">六本木<span>28</span></a></li><li><a href="a/%E8%B5%A4%E5%9D%82.html">赤坂<span>27</span></a></li><li><a href="a/%E4%BA%94%E5%8F%8D%E7%94%B0.html">五反田<span>23</span></a></li><li><a href="a/%E7%9B%AE%E9%BB%92.html">目黒<span>23</span></a></li><li><a href="a/%E4%BA%8C%E5%AD%90%E7%8E%89%E5%B7%9D.html">二子玉川<span>23</span></a></li><li><a href="a/%E7%99%BD%E9%87%91%E9%AB%98%E8%BC%AA.html">白金高輪<span>22</span></a></li><li><a href="a/%E5%8E%9F%E5%AE%BF.html">原宿<span>21</span></a></li><li><a href="a/%E9%82%A3%E8%A6%87.html">那覇<span>21</span></a></li><li><a href="a/%E5%BA%83%E5%B0%BE.html">広尾<span>19</span></a></li><li><a href="a/%E4%BB%A3%E5%AE%98%E5%B1%B1.html">代官山<span>18</span></a></li><li><a href="a/%E6%B1%9F%E3%83%8E%E5%B3%B6.html">江ノ島<span>18</span></a></li><li><a href="a/%E6%BA%9D%E3%81%AE%E5%8F%A3.html">溝の口<span>17</span></a></li><li><a href="a/%E4%B8%8B%E5%8C%97%E6%B2%A2.html">下北沢<span>16</span></a></li><li><a href="a/%E8%A5%BF%E9%BA%BB%E5%B8%83.html">西麻布<span>16</span></a></li><li><a href="a/%E3%83%AF%E3%82%A4%E3%82%AD%E3%82%AD.html">ワイキキ<span>15</span></a></li><li><a href="a/%E6%B5%85%E8%8D%89.html">浅草<span>14</span></a></li><li><a href="a/%E3%81%9F%E3%81%BE%E3%83%97%E3%83%A9%E3%83%BC%E3%82%B6.html">たまプラーザ<span>14</span></a></li><li><a href="a/%E7%A5%9E%E4%BF%9D%E7%94%BA.html">神保町<span>12</span></a></li><li><a href="a/%E6%96%B0%E6%A9%8B.html">新橋<span>11</span></a></li><li><a href="a/%E7%AE%B1%E6%A0%B9%E6%B9%AF%E6%9C%AC.html">箱根湯本<span>11</span></a></li><li><a href="a/%E7%99%BB%E6%88%B8.html">登戸<span>10</span></a></li><li><a href="a/%E6%9D%B1%E4%BA%AC%E3%83%BB%E4%B8%B8%E3%81%AE%E5%86%85.html">東京・丸の内<span>10</span></a></li><li><a href="a/%E9%8A%80%E5%BA%A7.html">銀座<span>10</span></a></li><li><a href="a/%E7%94%B0%E7%94%BA%E3%83%BB%E4%B8%89%E7%94%B0.html">田町・三田<span>10</span></a></li><li><a href="a/%E6%AD%A6%E8%94%B5%E5%B0%8F%E5%B1%B1.html">武蔵小山<span>9</span></a></li><li><a href="a/%E7%A5%9E%E6%A5%BD%E5%9D%82.html">神楽坂<span>9</span></a></li><li><a href="a/%E7%A5%9E%E6%B3%89.html">神泉<span>9</span></a></li><li><a href="a/%E6%B1%A0%E5%B0%BB%E5%A4%A7%E6%A9%8B.html">池尻大橋<span>8</span></a></li><li><a href="a/%E8%92%B2%E7%94%B0.html">蒲田<span>8</span></a></li><li><a href="a/%E5%B7%9D%E5%B4%8E.html">川崎<span>8</span></a></li><li><a href="a/%E5%A4%96%E8%8B%91%E5%89%8D.html">外苑前<span>8</span></a></li><li><a href="a/%E6%9C%89%E6%A5%BD%E7%94%BA.html">有楽町<span>8</span></a></li><li><a href="a/%E5%A4%A7%E4%BA%95%E7%94%BA.html">大井町<span>7</span></a></li><li><a href="a/%E6%B1%A0%E8%A2%8B.html">池袋<span>7</span></a></li><li><a href="a/%E9%BA%BB%E5%B8%83%E5%8F%B0.html">麻布台<span>7</span></a></li><li><a href="a/%E6%96%B0%E5%AE%BF.html">新宿<span>7</span></a></li><li><a href="a/%E6%B5%9C%E6%9D%BE%E7%94%BA.html">浜松町<span>6</span></a></li><li><a href="a/%E4%BB%A3%E3%80%85%E6%9C%A8%E4%B8%8A%E5%8E%9F.html">代々木上原<span>6</span></a></li><li><a href="a/%E3%83%9F%E3%83%83%E3%83%89%E3%82%BF%E3%82%A6%E3%83%B3.html">ミッドタウン<span>6</span></a></li><li><a href="a/%E6%B5%9C%E6%9D%BE.html">浜松<span>6</span></a></li><li><a href="a/%E7%94%9F%E7%94%B0.html">生田<span>5</span></a></li><li><a href="a/%E7%86%B1%E6%B5%B7.html">熱海<span>5</span></a></li><li><a href="a/%E6%88%B8%E8%B6%8A%E9%8A%80%E5%BA%A7.html">戸越銀座<span>5</span></a></li><li><a href="a/%E8%8C%85%E3%83%B6%E5%B4%8E.html">茅ヶ崎<span>5</span></a></li><li><a href="a/%E4%BA%80%E6%88%B8.html">亀戸<span>4</span></a></li><li><a href="a/%E5%BE%A1%E5%BE%92%E7%94%BA.html">御徒町<span>4</span></a></li><li><a href="a/%E4%B8%8D%E5%8B%95%E5%89%8D.html">不動前<span>4</span></a></li><li><a href="a/%E7%B5%8C%E5%A0%82.html">経堂<span>4</span></a></li><li><a href="a/%E4%B8%83%E9%87%8C%E3%83%B6%E6%B5%9C.html">七里ヶ浜<span>4</span></a></li><li><a href="a/%E6%96%B0%E7%99%BE%E5%90%88%E3%83%B6%E4%B8%98.html">新百合ヶ丘<span>4</span></a></li><li><a href="a/%E5%8C%97%E8%B0%B7.html">北谷<span>4</span></a></li><li><a href="a/%E5%A4%A7%E6%89%8B%E7%94%BA.html">大手町<span>4</span></a></li><li><a href="a/%E5%BE%A1%E8%8C%B6%E3%83%8E%E6%B0%B4.html">御茶ノ水<span>4</span></a></li><li><a href="a/%E5%90%89%E7%A5%A5%E5%AF%BA.html">吉祥寺<span>4</span></a></li><li><a href="a/%E8%97%A4%E6%B2%A2.html">藤沢<span>4</span></a></li><li><a href="a/%E8%A5%BF%E4%B8%AD%E6%B4%B2.html">西中洲<span>4</span></a></li><li><a href="a/%E6%96%B0%E5%AE%BF%E4%B8%89%E4%B8%81%E7%9B%AE.html">新宿三丁目<span>3</span></a></li><li><a href="a/%E6%96%B0%E5%B0%8F%E5%B2%A9.html">新小岩<span>3</span></a></li><li><a href="a/%E8%8D%BB%E7%AA%AA.html">荻窪<span>3</span></a></li><li><a href="a/%E6%9C%AC%E9%83%B7%E4%B8%89%E4%B8%81%E7%9B%AE.html">本郷三丁目<span>3</span></a></li><li><a href="a/%E6%A8%AA%E6%B5%9C.html">横浜<span>3</span></a></li><li><a href="a/%E9%B7%BA%E6%B2%BC.html">鷺沼<span>3</span></a></li><li><a href="a/%E4%B8%89%E9%B7%B9.html">三鷹<span>3</span></a></li><li><a href="a/%E7%A7%8B%E8%91%89%E5%8E%9F.html">秋葉原<span>3</span></a></li><li><a href="a/%E5%9B%9B%E3%83%84%E8%B0%B7.html">四ツ谷<span>3</span></a></li><li><a href="a/%E5%A4%A7%E5%B1%B1.html">大山<span>3</span></a></li><li><a href="a/%E7%AB%8B%E5%B7%9D.html">立川<span>3</span></a></li><li><a href="a/%E4%BB%99%E5%B7%9D.html">仙川<span>3</span></a></li><li><a href="a/%E9%A3%AF%E7%94%B0%E6%A9%8B.html">飯田橋<span>3</span></a></li><li><a href="a/%E8%A5%BF%E6%97%A5%E6%9A%AE%E9%87%8C.html">西日暮里<span>3</span></a></li><li><a href="a/%E7%A5%90%E5%A4%A9%E5%AF%BA.html">祐天寺<span>3</span></a></li><li><a href="a/%E8%BE%BB%E5%A0%82.html">辻堂<span>3</span></a></li><li><a href="a/%E5%93%81%E5%B7%9D.html">品川<span>3</span></a></li><li><a href="a/%E3%81%82%E3%81%96%E3%81%BF%E9%87%8E.html">あざみ野<span>3</span></a></li><li><a href="a/%E3%83%9B%E3%83%8E%E3%83%AB%E3%83%AB.html">ホノルル<span>3</span></a></li><li><a href="a/%E4%BA%BA%E5%BD%A2%E7%94%BA.html">人形町<span>3</span></a></li><li><a href="a/%E6%96%B0%E5%A4%A7%E4%B9%85%E4%BF%9D.html">新大久保<span>3</span></a></li><li><a href="a/%E5%8C%97%E5%8D%83%E4%BD%8F.html">北千住<span>3</span></a></li><li><a href="a/%E6%A1%9C%E6%96%B0%E7%94%BA.html">桜新町<span>3</span></a></li><li><a href="a/%E6%AD%A6%E8%94%B5%E5%B0%8F%E6%9D%89.html">武蔵小杉<span>3</span></a></li><li><a href="a/%E7%94%A8%E8%B3%80.html">用賀<span>3</span></a></li><li><a href="a/%E6%96%B0%E5%AE%BF%E5%BE%A1%E8%8B%91.html">新宿御苑<span>3</span></a></li><li><a href="a/%E3%83%AD%E3%82%A6%E3%82%A2%E3%83%BC%E3%82%A4%E3%83%BC%E3%82%B9%E3%83%88%E3%82%B5%E3%82%A4%E3%83%89.html">ロウアーイーストサイド<span>3</span></a></li><li><a href="a/%E3%83%91%E3%83%AA6%E5%8C%BA.html">パリ6区<span>3</span></a></li><li><a href="a/%E6%9C%AC%E9%83%A8.html">本部<span>3</span></a></li><li><a href="a/%E6%97%A5%E6%AF%94%E8%B0%B7.html">日比谷<span>3</span></a></li><li><a href="a/%E6%9D%B1%E9%87%91.html">東金<span>3</span></a></li><li><a href="a/Haleiwa.html">Haleiwa<span>3</span></a></li><li><a href="a/%E6%B2%B3%E5%8F%A3%E6%B9%96.html">河口湖<span>3</span></a></li><li><a href="a/%E5%8C%97%E5%93%81%E5%B7%9D.html">北品川<span>3</span></a></li><li><a href="a/%E5%8D%9A%E5%A4%9A%E9%A7%85%E6%9D%B1.html">博多駅東<span>3</span></a></li><li><a href="a/%E3%81%99%E3%81%99%E3%81%8D%E3%81%AE.html">すすきの<span>3</span></a></li><li><a href="a/%E5%A4%A7%E5%B2%A1%E5%B1%B1.html">大岡山<span>3</span></a></li><li><a href="a/%E8%99%8E%E3%83%8E%E9%96%80.html">虎ノ門<span>3</span></a></li></ul>
+</section>
+<section id="about">
+  <p class="eyebrow">ABOUT</p>
+  <h2>この店帳について</h2>
+  <p class="ab">2021年から、行った店をインスタグラムのストーリーに残してきました。それを1軒ずつ数え直して、並べたのがこのサイトです。</p><p class="ab">店は東京とその周りが中心。写真はすべて自分で撮ったもので、行っていない店は1軒も載せていません。</p><p class="ab">並べる基準は点数ではなく、「また行きたいか」と「わざわざ行く理由があるか」です。点数と口コミの要約は、参考として添えているだけです。</p>
+  
 </section>
 
 <script>
@@ -422,7 +439,7 @@ function loosen(f) {
   return null;
 }
 
-let shown = 24, list = [], mode = "";
+let shown = 24, list = [], mode = "理由";
 function search() {
   const q = $("#q").value.trim();
   if (!q && !mode) { list = []; $("#how").innerHTML = ""; shown = 24; return render(); }
@@ -464,16 +481,37 @@ function render() {
   $("#more").textContent = "もっと見る（残り " + (list.length - shown) + "店）";
 }
 
-$("#q").oninput = search;
+let urlTimer = 0;
+function syncUrl() {
+  clearTimeout(urlTimer);
+  urlTimer = setTimeout(() => {
+    const p = new URLSearchParams();
+    if ($("#q").value.trim()) p.set("q", $("#q").value.trim());
+    if (mode !== "理由") p.set("f", mode || "なし"); // 既定と違うときだけ残す
+    const s = p.toString();
+    history.replaceState(null, "", s ? "?" + s : location.pathname);
+  }, 400);
+}
+function readUrl() {
+  const p = new URLSearchParams(location.search);
+  if (p.get("q")) $("#q").value = p.get("q");
+  if (p.has("f")) {
+    mode = p.get("f") === "なし" ? "" : p.get("f");
+    document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.f === mode)));
+  }
+}
+
+$("#q").oninput = () => { search(); syncUrl(); };
 $("#more").onclick = () => { shown += 48; render(); };
 document.querySelectorAll(".chip").forEach((b) => {
   b.onclick = () => {
     mode = mode === b.dataset.f ? "" : b.dataset.f;
     document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.f === mode)));
-    search();
+    search(); syncUrl();
   };
 });
-document.querySelectorAll(".ex").forEach((b) => { b.onclick = () => { $("#q").value = b.textContent; search(); $("#q").focus(); }; });
+document.querySelectorAll(".ex").forEach((b) => { b.onclick = () => { $("#q").value = b.textContent; search(); syncUrl(); $("#q").focus(); }; });
+readUrl();
 search();
 
 
@@ -568,8 +606,8 @@ if (askBox && typeof ASK_URL === "string" && ASK_URL) {
 </main>
 <footer class="site">
   <p class="fname">チョイソの店帳</p>
-  <p class="ftag">6年ぶん、実際に行った店だけの記録</p>
-  <p class="note">写真はすべて自分で撮ったものです。予算・定休日・営業状況は調べた時点のもので変わることがあるので、行く前に店の情報で確かめてください。誤りがあれば直します。</p>
+  <p class="ftag">6年かけて歩いた店の記録</p>
+  <p class="note">写真はすべて自分で撮ったものです。予算・定休日・営業状況は調べた時点のもので変わることがあるので、行く前にお店の公式情報で確かめてください。誤りがあれば直します。</p>
 </footer>
 </body>
 </html>
