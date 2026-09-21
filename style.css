@@ -251,6 +251,15 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
 .trivia ul { margin: 0; padding-left: 1.3em; }
 .trivia li { margin-bottom: 10px; color: var(--ink-2); }
+/* 月ごとの特集。バックナンバーの一覧 */
+.issues { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+.issues a { display: grid; gap: 8px; }
+.issues .ph img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; filter: brightness(.86) contrast(1.06); }
+.issues .kicker { font: 500 11px/1 var(--sans); letter-spacing: .12em; color: var(--gold); }
+.issues .nm { font: 700 clamp(17px, 2.4vw, 21px)/1.6 var(--serif); color: var(--ink); }
+.issues .hook { font-size: 13.5px; line-height: 1.95; color: var(--ink-3); }
+.issue h2 .n { display: block; margin-top: 8px; font: 500 13px/1.6 var(--sans); letter-spacing: .06em; color: var(--gold); }
+
 /* 店帳と湯帳をまたぐところ。同じサイトの中の「近い店」と見分けが付くように、上に線を引く */
 .related.cross { border-top: 1px solid var(--line); padding-top: 28px; }
 .related.cross .eyebrow { color: var(--gold); }
