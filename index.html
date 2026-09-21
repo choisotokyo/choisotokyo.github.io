@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 
-<link rel="stylesheet" href="style.css?v=7dae55f3">
+<link rel="stylesheet" href="style.css?v=9006c478">
 
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"チョイソの店帳","description":"6年かけて歩いた店の記録","url":"https://choisotokyo.github.io/","inLanguage":"ja"}]</script>
 </head>
@@ -47,16 +47,19 @@
 <section class="search">
   <p class="eyebrow">SEARCH</p>
   <h2>店を探す</h2>
-  <p class="sec-lead">分かるのは<b>街・ジャンル・予算・曜日と時間・わざわざ行く理由</b>と、店の名前です。
-  「恵比寿で6000円くらいの焼肉」のように書いてください。<br>
-  <span class="warn">「デート向き」「接待に使える」のような雰囲気では探せません。読み取れなかった言葉は、そのつど下に出します。</span></p>
+  <p class="sec-lead">条件を選んでください。いくつ選んでも、選ばなくてもかまいません。</p>
+  <div class="picks" id="picks">
+    <label><span>街</span><select id="pArea"></select></label>
+    <label><span>ジャンル</span><select id="pGenre"></select></label>
+    <label><span>予算</span><select id="pYen"></select></label>
+    <label><span>曜日</span><select id="pDay"></select></label>
+    <label><span>時間</span><select id="pTime"></select></label>
+  </div>
   <form class="searchbar" id="qf" role="search" onsubmit="return false">
     <svg class="mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-    <input type="search" id="q" placeholder="店名でも、条件でも（例: 日曜の夜にやってる焼肉）" autocomplete="off" aria-label="店を探す">
+    <input type="search" id="q" placeholder="店名で探す（例: 一燈）" autocomplete="off" aria-label="店名で探す">
     <button type="button" id="qc" class="clear" aria-label="消す" hidden>×</button>
-    <button type="submit" id="qb">探す</button>
   </form>
-  <p class="examples"><span class="hint">例えば</span><button type="button" class="ex">6000円くらいで焼肉</button><button type="button" class="ex">昼にそばを食べたい</button><button type="button" class="ex">日曜の夜にやってる店</button><button type="button" class="ex">古民家の店</button><button type="button" class="ex">その土地の味</button></p>
   <p class="how" id="how" aria-live="polite"></p>
   <p class="filters">
     <span class="hint">どこから探すか</span>
@@ -299,112 +302,112 @@
   <p class="eyebrow">PICK UP</p>
   <h2>今日はこの12軒から</h2>
   <ul class="cards"><li class="card">
-  <a href="s/T1313.html">
-    <span class="ph"><img src="img/T1313.jpg" alt="Island Vintage Wine Bar｜ガーリックシュリンプ、ワイン・ワインバー" loading="lazy" width="640" height="480">
+  <a href="s/T1518.html">
+    <span class="ph"><img src="img/T1518.jpg" alt="沖縄近海魚 琉球料理 ちゅらさん亭｜海ぶどう丼、沖縄近海の地魚料理、琉球家庭料理・チャンプルー・沖縄料理" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">ワインバー　ワイキキ</span>
-    <span class="nm">Island Vintage Wine Bar</span>
-    <span class="hook">自動ディスペンサーで約40種のワインを少量から試飲できる</span>
-    
+    <span class="kicker">沖縄料理　旭橋駅</span>
+    <span class="nm">沖縄近海魚 琉球料理 ちゅらさん亭</span>
+    <span class="hook">座席の魚説明付き、沖縄近海の地魚と名物海ぶどう丼</span>
+    <span class="price">夜 ¥6,000～¥7,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T0405.html">
-    <span class="ph"><img src="img/T0405.jpg" alt="CARROLL（キャロル）アトレ五反田2｜サラダバー付きのメインプレート、ファヒータなどアメリカ南部風料理・ステーキ" loading="lazy" width="640" height="480">
+  <a href="s/T1037.html">
+    <span class="ph"><img src="img/T1037.jpg" alt="スマトラカレー 共栄堂｜スマトラカレー（タンカレーなど）・カレー" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">ステーキ　五反田</span>
-    <span class="nm">CARROLL（キャロル）アトレ五反田2</span>
-    <span class="hook">契約農園の彩り野菜サラダバー付き、南部風メインプレート</span>
-    <span class="price">昼 ¥1,000～¥1,999　夜 ¥2,000～¥2,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T0373.html">
-    <span class="ph"><img src="img/T0373.jpg" alt="ひみつ堂｜マンゴーかき氷など、天然氷を使ったふわふわのかき氷・かき氷" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">かき氷　日暮里駅</span>
-    <span class="nm">ひみつ堂</span>
-    <span class="hook">日光の天然氷を手動の削り機で削るマンゴーかき氷</span>
+    <span class="kicker">カレー　神保町駅</span>
+    <span class="nm">スマトラカレー 共栄堂</span>
+    <span class="hook">1924年創業、小麦粉不使用で元祖スマトラカレーを今に伝える店</span>
     <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1047.html">
-    <span class="ph"><img src="img/T1047.jpg" alt="BANDERUOLA-Cuscusseria-バンデルオーラ｜魚介のクスクス、パスタ・パスタ" loading="lazy" width="640" height="480">
+  <a href="s/T1558.html">
+    <span class="ph"><img src="img/T1558.jpg" alt="Me time（ミータイム）｜アサイーボウル・スムージー・アサイー" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">パスタ　恵比寿</span>
-    <span class="nm">BANDERUOLA-Cuscusseria-バンデルオーラ</span>
-    <span class="hook">シチリア・トラーパニ郷土料理クスクスを専用の器で蒸す製法を再現する専門店</span>
-    <span class="price">昼 ¥1,000～¥1,999　夜 ¥6,000～¥7,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1600.html">
-    <span class="ph"><img src="img/T1600.jpg" alt="ピッツェリア ロマーナ ジャニコロ｜ローマ風の薄生地ピッツァ・ピザ" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">ピザ　麻布十番</span>
-    <span class="nm">ピッツェリア ロマーナ ジャニコロ</span>
-    <span class="hook">サバティーニで20年修業した店主が焼くローマ風薄生地ピッツァ</span>
-    <span class="price">夜 ¥5,000～¥5,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T0960.html">
-    <span class="ph"><img src="img/T0960.jpg" alt="麻布永坂 更科本店｜三色そば（さらしなそば・変わりそばの三色盛り）・そば" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">そば　麻布十番駅</span>
-    <span class="nm">麻布永坂 更科本店</span>
-    <span class="hook">そばの実の中心だけを使う純白の御前粉、江戸三大蕎麦の一つ</span>
-    <span class="price">昼 ¥1,000～¥1,999　夜 ¥3,000～¥3,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1528.html">
-    <span class="ph"><img src="img/T1528.jpg" alt="Zooton's 久茂地店（ズートンズ）｜自家製バンズ・パティ・ソースのハンバーガー。・ハンバーガー" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">ハンバーガー　県庁前駅</span>
-    <span class="nm">Zooton's 久茂地店（ズートンズ）</span>
-    <span class="hook">元はバーだったが人気で転身した自家製バンズのバーガー</span>
+    <span class="kicker">アサイー　麻布十番</span>
+    <span class="nm">Me time（ミータイム）</span>
+    <span class="hook">砂糖・乳製品・小麦粉不使用のアサイーボウル</span>
     <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T0748.html">
-    <span class="ph"><img src="img/T0748.jpg" alt="ヴェンキ 銀座店（Venchi）｜ジャンドゥイオット（ジャンドゥーヤチョコレート）、ジェラート・アイス・ジェラート" loading="lazy" width="640" height="480">
+  <a href="s/T1522.html">
+    <span class="ph"><img src="img/T1522.jpg" alt="てぃしらじそば｜三枚肉がのった沖縄そば（メニューは沖縄そば一本に絞る）。・沖縄そば" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">アイス・ジェラート　銀座</span>
-    <span class="nm">ヴェンキ 銀座店（Venchi）</span>
-    <span class="hook">1878年創業トリノの老舗、量り売りのジャンドゥイオット</span>
+    <span class="kicker">沖縄そば　首里駅</span>
+    <span class="nm">てぃしらじそば</span>
+    <span class="hook">趣味が高じて脱サラ店主が始めた、売り切れ御免の自家製麺沖縄そば</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T1760.html">
+    <span class="ph"><img src="img/T1760.jpg" alt="BIANCHI / BIANCHI mini me｜カオマンガイ、パッタイ・タイ" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">タイ　六本木</span>
+    <span class="nm">BIANCHI / BIANCHI mini me</span>
+    <span class="hook">ランチとディナーで店名を変えて営業するタイ屋台のカオマンガイ</span>
+    <span class="price">夜 ¥6,000～¥7,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T1743.html">
+    <span class="ph"><img src="img/T1743.jpg" alt="Trattoria Pizzeria ESSE DUE 赤坂本店｜薪窯焼きナポリピッツァ（マルゲリータ、生ハムのピザなど）・ピザ" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">ピザ　赤坂</span>
+    <span class="nm">Trattoria Pizzeria ESSE DUE 赤坂本店</span>
+    <span class="hook">赤坂20年超の老舗、石窯で焼く本格ナポリピッツァ</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥5,000～¥5,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0043.html">
+    <span class="ph"><img src="img/T0043.jpg" alt="夜パフェ専門店 Parfaiteria beL 渋谷｜夜パフェ（季節のフルーツを使った手作りパフェ）・ケーキ・パフェ" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">ケーキ・パフェ　渋谷</span>
+    <span class="nm">夜パフェ専門店 Parfaiteria beL 渋谷</span>
+    <span class="hook">札幌発“夜パフェ”文化を伝える東京1号店、24時間ケーキ缶自販機も</span>
+    <span class="price">夜 ¥2,000～¥2,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T1149.html">
+    <span class="ph"><img src="img/T1149.jpg" alt="MILK DO dore iku? 品川天王洲アイル店｜生ドーナツ・スイーツ" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">スイーツ　天王洲アイル駅</span>
+    <span class="nm">MILK DO dore iku? 品川天王洲アイル店</span>
+    <span class="hook">天王洲アイル限定フレーバーもある札幌発の生ドーナツ</span>
+    <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0844.html">
+    <span class="ph"><img src="img/T0844.jpg" alt="ブレッド&amp;タパス 沢村 広尾（SAWAMURA）｜焼きたてパンとタパス料理（ランチプレート）・バル・タパス" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">バル・タパス　広尾</span>
+    <span class="nm">ブレッド&amp;タパス 沢村 広尾（SAWAMURA）</span>
+    <span class="hook">軽井沢発祥、約30種の粉を低温長時間発酵させた焼きたてパン</span>
+    <span class="price">昼 ¥2,000～¥2,999　夜 ¥5,000～¥5,999</span>
+  </a>
+</li><li class="card">
+  <a href="s/T0604.html">
+    <span class="ph"><img src="img/T0604.jpg" alt="喫茶 穂高｜トーストセット、ナポリタン・喫茶店" loading="lazy" width="640" height="480">
+      </span>
+    <span class="kicker">喫茶店　御茶ノ水駅</span>
+    <span class="nm">喫茶 穂高</span>
+    <span class="hook">昭和30年創業で山小屋風の内装をビル建替え後も忠実に復元した喫茶店</span>
     <span class="price">昼 ～¥999　夜 ～¥999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1429.html">
-    <span class="ph"><img src="img/T1429.jpg" alt="炭火焼と旬のおさかな 菜の花｜生牡蠣、甘鯛昆布締め、牛ハラミ炭火焼、刺身盛り合わせ・そば" loading="lazy" width="640" height="480">
+  <a href="s/T1028.html">
+    <span class="ph"><img src="img/T1028.jpg" alt="鈴芳｜樽生ホッピー、韓国風牛すじ煮込み・居酒屋" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">そば　センター南駅</span>
-    <span class="nm">炭火焼と旬のおさかな 菜の花</span>
-    <span class="hook">旬の魚介を炭火で焼く居酒屋の〆に出る本格ざるそば</span>
-    <span class="price">夜 ¥3,000～¥3,999</span>
+    <span class="kicker">居酒屋　浅草（つくばEXP）</span>
+    <span class="nm">鈴芳</span>
+    <span class="hook">浅草ホッピー通りで樽生ホッピーを飲めるのはこの店だけとされる</span>
+    <span class="price">昼 ¥2,000～¥2,999　夜 ¥2,000～¥2,999</span>
   </a>
 </li><li class="card">
-  <a href="s/T1175.html">
-    <span class="ph"><img src="img/T1175.jpg" alt="Balcony by 6th｜パスタ、アクアパッツァ、看板のパンケーキとバスクチーズケーキ・イタリアン" loading="lazy" width="640" height="480">
+  <a href="s/T0724.html">
+    <span class="ph"><img src="img/T0724.jpg" alt="トラットリア ピッツェリア ラルテ（Trattoria e Pizzeria L'ARTE）｜ナポリピッツァ・パスタ" loading="lazy" width="640" height="480">
       </span>
-    <span class="kicker">イタリアン　神谷町</span>
-    <span class="nm">Balcony by 6th</span>
-    <span class="hook">マリリン・モンローも宿泊した老舗ホテルの系譜を継ぐテラス空間</span>
-    <span class="price">昼 ¥3,000～¥5,999　夜 ¥6,800～¥9,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T0684.html">
-    <span class="ph"><img src="img/T0684.jpg" alt="生産者組合 とんかつ 幻水豚（ゲンスイトン）｜幻水豚を使った「白いとんかつ」、上ロース・上赤身のとんかつ定食・とんかつ" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">とんかつ　三軒茶屋駅</span>
-    <span class="nm">生産者組合 とんかつ 幻水豚（ゲンスイトン）</span>
-    <span class="hook">還元水を飲ませ自然飼育した幻水豚を使う「白いとんかつ」</span>
-    <span class="price">昼 ¥1,000～¥1,999　夜 ¥1,000～¥1,999</span>
-  </a>
-</li><li class="card">
-  <a href="s/T1401.html">
-    <span class="ph"><img src="img/T1401.jpg" alt="地鶏炭火焼 鳥亭 白金店｜親鳥もも肉の炭火焼、鶏の唐揚げ（9種の味から選べる）・から揚げ" loading="lazy" width="640" height="480">
-      </span>
-    <span class="kicker">から揚げ　白金高輪駅</span>
-    <span class="nm">地鶏炭火焼 鳥亭 白金店</span>
-    <span class="hook">熊本発、備長炭で焼く親鳥もも肉と9種の味から選べる唐揚げ</span>
-    <span class="price">夜 ¥3,000～¥3,999</span>
+    <span class="kicker">パスタ　三軒茶屋駅</span>
+    <span class="nm">トラットリア ピッツェリア ラルテ（Trattoria e Pizzeria L'ARTE）</span>
+    <span class="hook">ビブグルマン掲載、ピザ百名店4度選出のVPN認定ナポリピッツァ</span>
+    <span class="price">昼 ¥3,000～¥3,999　夜 ¥8,000～¥9,999</span>
   </a>
 </li></ul>
 </section>
@@ -649,54 +652,106 @@ function loosen(f) {
   return null;
 }
 
-let shown = 24, list = [], mode = "理由";
-function search() {
+
+const pick = (el, opts, head) => {
+  $(el).innerHTML = `<option value="">${head}</option>` +
+    opts.map(([v, label]) => `<option value="${esc(v)}">${esc(label)}</option>`).join("");
+};
+const count = (get) => {
+  const c = new Map();
+  for (const s of D) { const k = get(s); if (k) c.set(k, (c.get(k) || 0) + 1); }
+  return [...c].sort((a, b) => b[1] - a[1]);
+};
+pick("#pArea", count((s) => s.r).filter(([, n]) => n >= 3).map(([v, n]) => [v, `${v}（${n}）`]), "どこでも");
+pick("#pGenre", count((s) => s.g).map(([v, n]) => [v, `${v}（${n}）`]), "何でも");
+pick("#pYen", [["0-2000", "〜2,000円"], ["2000-4000", "2,000〜4,000円"], ["4000-6000", "4,000〜6,000円"],
+  ["6000-10000", "6,000〜10,000円"], ["10000-0", "10,000円〜"]], "いくらでも");
+pick("#pDay", WEEK.map((w, i) => [String(i), `${w}曜`]), "いつでも");
+pick("#pTime", [["11", "昼（11時台）"], ["13", "昼すぎ（13時台）"], ["18", "夜（18時台）"],
+  ["20", "夜おそめ（20時台）"], ["23", "深夜（23時台）"]], "何時でも");
+
+function picked() {
+  const f = { area: "", genre: "", sub: "", tag: "", far: "", yen: 0, cheap: false, pricey: false,
+    worth: false, lunch: false, dinner: false, day: null, min: null, words: [] };
+  f.area = $("#pArea").value;
+  f.genre = $("#pGenre").value;
+  const y = $("#pYen").value;
+  if (y) { const [lo, hi] = y.split("-").map(Number); f.yenLo = lo; f.yenHi = hi || 0; }
+  const d = $("#pDay").value;
+  if (d) f.day = +d;
+  const h = $("#pTime").value;
+  if (h) f.min = +h * 60 + 30;
+  // 曜日だけ選ばれたら「その日にやっている」、時間だけ選ばれたら曜日は問わない
   const q = $("#q").value.trim();
-  if (!q && !mode) { list = []; $("#how").innerHTML = ""; shown = 24; return render(); }
-  const f = parse(q);
-  if (mode === "理由") f.worth = true;
-  if (mode === "推し") f.star = true;
-  list = D.filter((s) => match(s, f) && (!f.star || s.s));
-  // 全部は満たせないときは、条件を1つ外して近いものを出す（0件で終わらせない）
-  let note = "";
-  if (!list.length) {
-    const NAME = { words: "言葉", yen: "予算", cheap: "安さ", pricey: "値段", lunch: "昼", dinner: "夜",
-      far: "遠さ", area: "場所", sub: "系統", genre: "ジャンル", tag: "理由", day: "曜日と時刻" };
-    const l = loosen(f);
-    if (l) { list = l.list; note = NAME[l.dropped] + "の条件を外すと、これだけありました"; }
-    // 条件をゆるめても出ないときは、線の内側で探していることが理由のことが多い
-    else if (mode === "理由") note = "わざわざ行く価値がある店の中には、ありませんでした。「全部見る」に変えると出てくるかもしれません";
-    else note = "この条件では見つかりませんでした";
-  }
-  // わざわざ行く価値がある店を先に
-  list.sort((a, b) => (f.day != null && f.min != null ? openAt(b, f.day, f.min) - openAt(a, f.day, f.min) : 0) || (b.w - a.w) || (b.s - a.s));
-  const p = explain(f);
-  // 分からなかった言葉は黙って捨てない。捨てたことを言わないと、
-  // 「デートで使う店」と打った人に、ただのラーメン屋が出たように見える
-  // 切れ端（「使うお」）まで挙げると、こちらの切り方が下手なだけなのに
-  // 相手の言葉が悪かったように見える。言葉の形をしているものだけ挙げる
-  const miss = (f.dropped || []).filter((w) => /^(?:[ァ-ヶー]{2,8}|[一-龥]{2,6}|[A-Za-z]{2,12})$/.test(w));
-  $("#how").innerHTML = (q && p.length
-    ? '<span class="hint">こう読みました：</span>' + p.map((x) => "<i>" + x + "</i>").join("")
-    : "")
-    + (q && miss.length ? '<span class="miss">' + miss.map((w) => "「" + esc(w) + "」").join("")
-      + "は分かりませんでした" + (p.length ? "（この言葉は使っていません）" : "。街・ジャンル・予算・曜日・時間で探せます") + "</span>" : "")
-    + (note ? '<span class="loose">' + note + "</span>" : "");
-  // 曜日・時刻で絞ったときは、開いていると分かっている店と、分からない店を見分けられるようにする
-  openMark = (f.day != null)
-    ? (s) => { const st = f.min != null ? openAt(s, f.day, f.min) : (s.hr ? 1 : -1);
-        return st === 1 ? '<i class="ok">開いている</i>' : '<i class="unk">営業時間が分からない</i>'; }
-    : null;
-  shown = 24; render();
+  if (q) f.name = norm(q);
+  return f;
 }
 
-let openMark = null;
+function explainPicked(f) {
+  const p = [];
+  if (f.area) p.push(["a", esc(f.area)]);
+  if (f.genre) p.push(["g", esc(f.genre)]);
+  if (f.yenLo != null) p.push(["y", esc($("#pYen").selectedOptions[0].textContent)]);
+  if (f.day != null) p.push(["d", WEEK[f.day] + "曜"]);
+  if (f.min != null) p.push(["t", esc($("#pTime").selectedOptions[0].textContent)]);
+  if (f.name) p.push(["q", "「" + esc($("#q").value.trim()) + "」"]);
+  return p;
+}
+
+function matchPicked(s, f) {
+  if (f.area && s.r !== f.area && s.t !== f.area) return false;
+  if (f.genre && s.g !== f.genre) return false;
+  if (f.name && !s.q.includes(f.name)) return false;
+  if (f.yenLo != null) {
+    const b = band(s.pd || s.pl);
+    if (!b) return false;
+    if (f.yenHi && b[0] >= f.yenHi) return false;
+    if (b[1] < f.yenLo) return false;
+  }
+  if (f.day != null || f.min != null) {
+    const day = f.day != null ? f.day : (new Date().getDay() + 6) % 7;
+    const min = f.min != null ? f.min : null;
+    if (min == null) { if (s.hr && hoursOf(s.hr)[day] && !hoursOf(s.hr)[day].length) return false; }
+    else if (openAt(s, day, min) === 0) return false;
+  }
+  return true;
+}
+
+let shown = 24, list = [], mode = "理由";
+function search() {
+  const f = picked();
+  if (mode === "理由") f.worth = true;
+  if (mode === "推し") f.star = true;
+  list = D.filter((s) => matchPicked(s, f) && (!f.worth || s.w) && (!f.star || s.s));
+  let note = "";
+  if (!list.length) {
+    note = mode === "理由"
+      ? "この条件に合う店は、わざわざ行く価値がある店の中にはありませんでした。「全部見る」に変えてみてください"
+      : "この条件では見つかりませんでした。どれかを「どこでも」「何でも」に戻してみてください";
+  }
+  list.sort((a, b) => (f.day != null && f.min != null ? openAt(b, f.day, f.min) - openAt(a, f.day, f.min) : 0) || (b.w - a.w) || (b.s - a.s));
+  const p = explainPicked(f);
+  $("#qc").hidden = !$("#q").value.trim();
+  $("#how").innerHTML = (p.length
+    ? '<span class="hint">この条件で：</span>'
+      + p.map(([k, label]) => `<button type="button" class="cond" data-k="${k}" title="この条件を外す">${label}<span aria-hidden="true">×</span></button>`).join("")
+      + (p.length > 1 ? '<button type="button" class="cond all" data-k="*">ぜんぶ外す</button>' : "")
+    : "")
+    + (note ? '<span class="loose">' + note + "</span>" : "");
+  openMark = (f.day != null)
+    ? (s) => { const st = f.min != null ? openAt(s, f.day, f.min) : (s.hr ? 1 : -1);
+      return st === 1 ? '<i class="ok">開いている</i>' : st === 0 ? "" : '<i class="unk">営業時間が分からない</i>'; }
+    : null;
+  shown = 24;
+  render();
+}
+
 function render() {
   const q = $("#q").value.trim();
   // 数字だけだと、検索が効いたのか分からない。言葉にして出す
   $("#qc").hidden = !q;
   $("#count").innerHTML = !(q || mode) ? ""
-    : list.length === 0 ? "見つかりませんでした。言葉を減らすか、下の「全部見る」に変えてみてください"
+    : list.length === 0 ? "0軒"
       : q ? `<b>${list.length}軒</b> 見つかりました`
         : `<b>${list.length}軒</b> を出しています`;
   $("#results").innerHTML = list.slice(0, shown).map((s) => '<li class="card"><a href="s/' + s.i + '.html">'
@@ -720,14 +775,17 @@ function syncUrl() {
   urlTimer = setTimeout(() => {
     const p = new URLSearchParams();
     if ($("#q").value.trim()) p.set("q", $("#q").value.trim());
+    for (const [k, el] of Object.entries(PICKS)) if ($(el).value) p.set(k, $(el).value);
     if (mode !== "理由") p.set("f", mode || "なし"); // 既定と違うときだけ残す
     const s = p.toString();
     history.replaceState(null, "", s ? "?" + s : location.pathname);
   }, 400);
 }
+const PICKS = { a: "#pArea", g: "#pGenre", y: "#pYen", d: "#pDay", t: "#pTime" };
 function readUrl() {
   const p = new URLSearchParams(location.search);
   if (p.get("q")) $("#q").value = p.get("q");
+  for (const [k, el] of Object.entries(PICKS)) if (p.get(k)) $(el).value = p.get(k);
   if (p.has("f")) {
     mode = p.get("f") === "なし" ? "" : p.get("f");
     document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.f === mode)));
@@ -745,7 +803,15 @@ document.querySelectorAll(".chip").forEach((b) => {
 });
 $("#qf").addEventListener("submit", () => { search(); $("#results").scrollIntoView({ behavior: "smooth", block: "start" }); });
 $("#qc").onclick = () => { $("#q").value = ""; $("#q").focus(); search(); };
-document.querySelectorAll(".ex").forEach((b) => { b.onclick = () => { $("#q").value = b.textContent; search(); syncUrl(); $("#q").focus(); }; });
+document.querySelectorAll(".picks select").forEach((el) => { el.onchange = () => { search(); syncUrl(); }; });
+$("#how").addEventListener("click", (e) => {
+  const b = e.target.closest(".cond"); if (!b) return;
+  const k = b.dataset.k;
+  if (k === "*") { for (const el of Object.values(PICKS)) $(el).value = ""; $("#q").value = ""; }
+  else if (k === "q") $("#q").value = "";
+  else $(PICKS[k]).value = "";
+  search(); syncUrl();
+});
 readUrl();
 search();
 

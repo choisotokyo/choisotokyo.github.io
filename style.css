@@ -59,14 +59,16 @@ section { padding-block: 56px 0; }
 .searchbar .clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; cursor: pointer;
   background: rgba(255,255,255,.07); color: var(--ink-3); font: 400 15px/1 var(--sans); }
 .searchbar .clear:hover { background: rgba(255,255,255,.14); color: var(--ink); }
-.searchbar #qb { flex: none; align-self: stretch; padding: 0 28px; border: 0; cursor: pointer;
-  background: var(--gold); color: #0c0c0d; font: 700 14px/1 var(--sans); letter-spacing: .12em; }
-.searchbar #qb:hover { filter: brightness(1.08); }
-@media (max-width: 560px) {
-  .searchbar { flex-wrap: wrap; padding: 0 12px; }
-  .searchbar input { padding: 13px 0; }
-  .searchbar #qb { width: 100%; margin: 0 -12px; padding: 14px 0; }
-}
+.searchbar { padding: 0 16px; }
+/* 条件は書かせず選ばせる。書かせると必ず読み取れない言葉が出る */
+.picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.picks label { display: grid; gap: 5px; }
+.picks label span { font-size: 11px; letter-spacing: .12em; color: var(--ink-3); }
+.picks select { appearance: none; width: 100%; font: 14px/1.5 var(--sans); color: var(--ink);
+  background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238b857a' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 14px center/11px;
+  border: 1px solid var(--line); border-radius: 2px; padding: 12px 34px 12px 14px; cursor: pointer; }
+.picks select:hover { border-color: var(--gold-soft); }
+.picks select option { background: #14140f; }
 input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
 .count { color: var(--ink-3); font-size: 12px; letter-spacing: .1em; margin: 10px 0 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
@@ -102,6 +104,14 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .how { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 0; min-height: 18px; }
 .how .hint { font-size: 11px; letter-spacing: .1em; color: var(--ink-3); }
 .how .miss { flex-basis: 100%; font-size: 12px; line-height: 1.8; color: #d9a3a3; }
+/* 選んだ条件。×を押すとその条件だけ外れる */
+.how .cond { display: inline-flex; align-items: center; gap: 7px; font: 500 11.5px/1 var(--sans); color: var(--gold);
+  background: transparent; border: 1px solid rgba(194,161,92,.45); border-radius: 2px; padding: 6px 8px 6px 10px; cursor: pointer; }
+.how .cond span { font-size: 13px; line-height: 1; color: var(--ink-3); }
+.how .cond:hover { border-color: var(--gold); }
+.how .cond:hover span { color: var(--gold); }
+.how .cond.all { color: var(--ink-3); border-style: dashed; }
+.how .cond.all:hover { color: var(--ink); }
 .search .sec-lead b { color: var(--ink); font-weight: 500; }
 .search .sec-lead .warn { display: block; margin-top: 8px; font-size: 13px; color: var(--ink-3); }
 .how i { font-style: normal; font-size: 11.5px; color: var(--gold); border: 1px solid rgba(194,161,92,.45);
