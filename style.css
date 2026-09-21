@@ -251,6 +251,13 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
 .trivia ul { margin: 0; padding-left: 1.3em; }
 .trivia li { margin-bottom: 10px; color: var(--ink-2); }
+/* 店帳と湯帳をまたぐところ。同じサイトの中の「近い店」と見分けが付くように、上に線を引く */
+.related.cross { border-top: 1px solid var(--line); padding-top: 28px; }
+.related.cross .eyebrow { color: var(--gold); }
+.more-link { margin: 18px 0 0; }
+.more-link a { font-size: 13px; letter-spacing: .06em; color: var(--ink-3); border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.more-link a:hover { color: var(--gold); border-color: var(--gold-soft); }
+
 /* 湯帳で使う。湯船は自分で撮れないので、公式の投稿を出すところ */
 .official { margin: 40px 0 0; padding: 22px 24px; background: var(--panel); border: 1px solid var(--line); }
 .official h2 { margin: 2px 0 12px; }
