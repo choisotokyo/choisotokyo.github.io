@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=0bd2bcdb">
+<link rel="stylesheet" href="style.css?v=c36808b2">
 
 
 </head>
@@ -39,7 +39,7 @@
 <section class="maphead">
   <p class="eyebrow">MAP</p>
   <h1>地図で見る<span class="n" id="mcount"></span></h1>
-  <p class="sec-lead">座標が分かっている1,344軒を地図にしました。印をおすと店が出ます。現在地を出すと、近い順に5軒まで並べます。</p>
+  <p class="sec-lead">座標が分かっている1,344軒を地図にしました。左の一覧と地図は連動します。現在地を出すと、一覧が近い順に並び替わります。</p>
   <p class="mbtns"><button id="mlocate" type="button">現在地を出す</button><button id="mfit" type="button">全体を見る</button></p>
   <p class="mnote" id="mnote" aria-live="polite"></p>
   <p class="filters" id="mchips">
@@ -48,8 +48,10 @@
     <button type="button" class="chip" data-g="ラーメン" aria-pressed="false">ラーメン</button><button type="button" class="chip" data-g="カフェ" aria-pressed="false">カフェ</button><button type="button" class="chip" data-g="スイーツ" aria-pressed="false">スイーツ</button><button type="button" class="chip" data-g="焼肉" aria-pressed="false">焼肉</button><button type="button" class="chip" data-g="イタリアン" aria-pressed="false">イタリアン</button><button type="button" class="chip" data-g="和食・定食" aria-pressed="false">和食・定食</button><button type="button" class="chip" data-g="肉料理" aria-pressed="false">肉料理</button><button type="button" class="chip" data-g="海鮮・魚" aria-pressed="false">海鮮・魚</button><button type="button" class="chip" data-g="町中華" aria-pressed="false">町中華</button><button type="button" class="chip" data-g="バー" aria-pressed="false">バー</button>
   </p>
 </section>
-<div id="map"></div>
-<div class="mnear" id="mnear"></div>
+<div class="mapwrap">
+  <ol class="mlist" id="mlist"></ol>
+  <div id="map"></div>
+</div>
 </main>
 <footer class="site">
   <p class="fname">チョイソの店帳</p>
@@ -64,44 +66,83 @@ const D = [{"i":"T1718","n":"AALIYA COFFEE ROASTERS","g":"カフェ","b":"コー
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-const map = L.map("map", { zoomControl: true, attributionControl: true }).setView([35.681, 139.767], 12);
+const map = L.map("map", { zoomControl: true, attributionControl: true }).setView([35.681, 139.767], 13);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-const dot = (s) => L.divIcon({
-  className: "pin" + (s.w ? " gold" : "") + (s.s ? " star" : ""),
-  html: "<b></b>", iconSize: [14, 14], iconAnchor: [7, 7],
+const pin = (s, on) => L.divIcon({
+  className: "tear" + (s.w ? " gold" : "") + (on ? " on" : ""),
+  html: "<b></b>", iconSize: [22, 30], iconAnchor: [11, 30], popupAnchor: [0, -28],
 });
 
 const group = L.markerClusterGroup({
-  maxClusterRadius: 48,
+  maxClusterRadius: 44, showCoverageOnHover: false,
   iconCreateFunction: (c) => L.divIcon({
     className: "cluster", html: "<b>" + c.getChildCount() + "</b>",
-    iconSize: [34, 34], iconAnchor: [17, 17],
+    iconSize: [36, 36], iconAnchor: [18, 18],
   }),
 });
 
-let markers = [];
+let shown = [], byId = new Map();
+
+const popupOf = (s) =>
+  '<a class="mp" href="s/' + s.i + '.html">'
+  + (s.f ? '<img src="img/' + s.f + '" alt="" width="84" height="84">' : "")
+  + "<span><b>" + esc(s.n) + "</b>"
+  + "<i>" + esc(s.b || s.g) + (s.t ? " · " + esc(s.t) : "") + "</i>"
+  + (s.wy ? "<em>" + esc(s.wy) + "</em>" : s.h ? "<em>" + esc(s.h) + "</em>" : "")
+  + (s.p ? "<u>" + esc(s.p) + "</u>" : "")
+  + "</span></a>";
+
 function build(list) {
   group.clearLayers();
-  markers = list.filter((s) => s.lat).map((s) => {
-    const mk = L.marker([s.lat, s.lon], { icon: dot(s), title: s.n });
-    mk.bindPopup(
-      '<a class="mp" href="s/' + s.i + '.html">'
-      + (s.f ? '<img src="img/' + s.f + '" alt="" width="80" height="80">' : "")
-      + '<span><b>' + esc(s.n) + "</b>"
-      + '<i>' + esc(s.b || s.g) + (s.t ? " · " + esc(s.t) : "") + "</i>"
-      + (s.wy ? "<em>" + esc(s.wy) + "</em>" : s.h ? "<em>" + esc(s.h) + "</em>" : "")
-      + (s.p ? '<u>' + esc(s.p) + "</u>" : "")
-      + "</span></a>", { maxWidth: 260 });
+  byId = new Map();
+  shown = list.filter((s) => s.lat);
+  const marks = shown.map((s) => {
+    const mk = L.marker([s.lat, s.lon], { icon: pin(s, false), title: s.n });
+    mk.bindPopup(popupOf(s), { maxWidth: 270 });
+    mk.on("click", () => select(s.i, false));
     mk.store = s;
+    byId.set(s.i, mk);
     return mk;
   });
-  group.addLayers(markers);
+  group.addLayers(marks);
   map.addLayer(group);
-  $("#mcount").textContent = markers.length + "店";
+  $("#mcount").textContent = shown.length + "店";
+  drawList();
+}
+
+function drawList() {
+  $("#mlist").innerHTML = shown.slice(0, 300).map((s) => `<li class="mrow" data-i="${s.i}">
+    <button type="button">
+      ${s.f ? `<img src="img/${s.f}" alt="" loading="lazy" width="56" height="56">` : '<span class="noph"></span>'}
+      <span class="t">
+        <b>${esc(s.n)}${s.s ? ' <i class="st">★</i>' : ""}</b>
+        <i>${esc(s.b || s.g)}${s.t ? " · " + esc(s.t) : ""}${s.dist ? " · " + s.dist : ""}</i>
+        ${s.w ? '<em class="wt">わざわざ行く価値がある</em>' : ""}
+        ${s.p ? `<u>${esc(s.p)}</u>` : ""}
+      </span>
+    </button>
+    <a class="go" href="s/${s.i}.html">記録を見る</a>
+  </li>`).join("") + (shown.length > 300 ? '<li class="more">多すぎるので300店まで出しています。絞り込むと残りも出ます</li>' : "");
+  document.querySelectorAll("#mlist .mrow button").forEach((b) => {
+    b.onclick = () => select(b.parentElement.dataset.i, true);
+  });
+}
+
+function select(id, fromList) {
+  document.querySelectorAll("#mlist .mrow").forEach((el) => el.classList.toggle("on", el.dataset.i === id));
+  const mk = byId.get(id);
+  if (!mk) return;
+  for (const [k, m] of byId) m.setIcon(pin(m.store, k === id));
+  if (fromList) {
+    group.zoomToShowLayer(mk, () => { map.setView(mk.getLatLng(), Math.max(map.getZoom(), 16)); mk.openPopup(); });
+  } else {
+    const row = document.querySelector('#mlist .mrow[data-i="' + id + '"]');
+    if (row) row.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
 }
 
 let mode = "理由", genre = "";
@@ -117,35 +158,35 @@ function locate() {
     const ll = [p.coords.latitude, p.coords.longitude];
     if (me) { map.removeLayer(me); map.removeLayer(ring); }
     me = L.marker(ll, { icon: L.divIcon({ className: "mepin", html: "<b></b>", iconSize: [18, 18], iconAnchor: [9, 9] }), zIndexOffset: 1000 }).addTo(map);
-    ring = L.circle(ll, { radius: Math.max(p.coords.accuracy || 0, 60), color: "#6aa9ff", weight: 1, fillColor: "#6aa9ff", fillOpacity: .12 }).addTo(map);
+    ring = L.circle(ll, { radius: Math.max(p.coords.accuracy || 0, 60), color: "#2f6fd0", weight: 1, fillColor: "#2f6fd0", fillOpacity: .12 }).addTo(map);
     map.setView(ll, 15);
-    // 近い順に数軒出す
-    const near = markers.map((mk) => ({ s: mk.store, d: map.distance(ll, mk.getLatLng()) / 1000 }))
-      .sort((a, b) => a.d - b.d).slice(0, 5);
-    $("#mnear").innerHTML = near.length
-      ? "<p class=\"eyebrow\">NEAREST</p>" + near.map((x) =>
-        '<a href="s/' + x.s.i + '.html"><b>' + esc(x.s.n) + "</b><span>"
-        + (x.d < 1 ? Math.round(x.d * 1000) + "m" : x.d.toFixed(1) + "km") + " · " + esc(x.s.b || x.s.g) + "</span></a>").join("")
-      : "";
-    $("#mnote").textContent = "";
+    // 一覧を近い順に並べ替える
+    for (const s of shown) {
+      const d = map.distance(ll, [s.lat, s.lon]) / 1000;
+      s._d = d;
+      s.dist = d < 1 ? Math.round(d * 1000) + "m" : d.toFixed(1) + "km";
+    }
+    shown.sort((a, b) => a._d - b._d);
+    drawList();
+    $("#mnote").textContent = "近い順に並べ替えました";
   }, (e) => {
     $("#mnote").textContent = e.code === 1
-      ? "現在地の使用が許可されていません。ブラウザの設定で許可すると、近い店から出せます。"
+      ? "現在地の使用が許可されていません。ブラウザの設定で許可すると、近い順に並べ替えられます。"
       : "現在地が取れませんでした";
   }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
 }
 
 document.querySelectorAll("#mchips .chip").forEach((b) => {
   b.onclick = () => {
-    if (b.dataset.f !== undefined) { mode = mode === b.dataset.f ? "" : b.dataset.f; }
-    else { genre = genre === b.dataset.g ? "" : b.dataset.g; }
+    if (b.dataset.f !== undefined) mode = mode === b.dataset.f ? "" : b.dataset.f;
+    else genre = genre === b.dataset.g ? "" : b.dataset.g;
     document.querySelectorAll("#mchips .chip").forEach((x) =>
       x.setAttribute("aria-pressed", String(x.dataset.f !== undefined ? x.dataset.f === mode : x.dataset.g === genre)));
     apply();
   };
 });
 $("#mlocate").onclick = locate;
-$("#mfit").onclick = () => { if (markers.length) map.fitBounds(group.getBounds(), { padding: [30, 30] }); };
+$("#mfit").onclick = () => { if (shown.length) map.fitBounds(group.getBounds(), { padding: [30, 30] }); };
 apply();
 
 </script>
