@@ -299,6 +299,11 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
   color: #e0a9a0; border: 1px solid rgba(224,169,160,.4); border-radius: 2px; padding: 5px 7px; }
 .spa-filter { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 13px; color: var(--ink-3); }
 .spa-filter input { accent-color: var(--gold); width: 16px; height: 16px; }
+/* 場面（デートに向かない・ひとりで入りやすい）。自分で押して決めたもの */
+.scenes { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }
+.scenes i { font-style: normal; font-size: 11.5px; letter-spacing: .04em; color: var(--gold);
+  border: 1px solid var(--gold-soft); border-radius: 2px; padding: 5px 8px; }
+.scenes i.ng { color: #e0a9a0; border-color: rgba(224,169,160,.4); }
 
 /* 街を地図から選ぶ。丸の大きさと数字で、どこに何軒あるかを見せる */
 #amap { height: min(68vh, 720px); border: 1px solid var(--line); margin: 0 0 40px; background: #0f0f10; }
