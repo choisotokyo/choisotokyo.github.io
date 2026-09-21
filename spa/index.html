@@ -43,8 +43,21 @@
 </section>
 
 <section class="search">
-  <input type="search" id="q" placeholder="例: 池袋 シングル" autocomplete="off" aria-label="施設を探す">
-  <p class="examples"><button type="button" class="ex">水風呂10℃以下</button><button type="button" class="ex">サウナ100℃以上</button><button type="button" class="ex">1000円以下の銭湯</button><button type="button" class="ex">岩盤浴</button></p>
+  <p class="eyebrow">SEARCH</p>
+  <h2>施設を探す</h2>
+  <p class="sec-lead">条件を選んでください。いくつ選んでも、選ばなくてもかまいません。</p>
+  <div class="picks" id="picks">
+    <label><span>街</span><select id="pArea"></select></label>
+    <label><span>種類</span><select id="pKind"></select></label>
+    <label><span>サウナの温度</span><select id="pSauna"></select></label>
+    <label><span>水風呂の温度</span><select id="pMizu"></select></label>
+    <label><span>料金</span><select id="pYen"></select></label>
+  </div>
+  <form class="searchbar" id="qf" role="search" onsubmit="return false">
+    <svg class="mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    <input type="search" id="q" placeholder="施設名で探す（例: しきじ）" autocomplete="off" aria-label="施設名で探す">
+    <button type="button" id="qc" class="clear" aria-label="消す" hidden>×</button>
+  </form>
   <label class="spa-filter"><input type="checkbox" id="womenOnly"> 女性も入れる施設だけ</label>
   <p class="how" id="how" aria-live="polite"></p>
   <p class="count" id="count" aria-live="polite"></p>
@@ -154,22 +167,73 @@ function loosen(f) {
   return null;
 }
 
+
+const pick = (el, opts, head) => {
+  $(el).innerHTML = `<option value="">${head}</option>` +
+    opts.map(([v, label]) => `<option value="${esc(v)}">${esc(label)}</option>`).join("");
+};
+const tally = (get) => {
+  const c = new Map();
+  for (const s of D) { const k = get(s); if (k) c.set(k, (c.get(k) || 0) + 1); }
+  return [...c].sort((a, b) => b[1] - a[1]);
+};
+pick("#pArea", tally((s) => s.r).filter(([, n]) => n >= 2).map(([v, n]) => [v, `${v}（${n}）`]), "どこでも");
+pick("#pKind", tally((s) => s.k).map(([v, n]) => [v, `${v}（${n}）`]), "何でも");
+pick("#pSauna", [["100", "100℃以上"], ["90", "90℃以上"], ["80", "80℃以上"]], "何度でも");
+pick("#pMizu", [["10", "10℃以下（シングル含む）"], ["15", "15℃以下"], ["18", "18℃以下"]], "何度でも");
+pick("#pYen", [["1000", "1,000円以下"], ["2000", "2,000円以下"], ["3000", "3,000円以下"], ["5000", "5,000円以下"]], "いくらでも");
+
+const kana = (x) => String(x || "").normalize("NFKC").toLowerCase()
+  .replace(/[ァ-ヴ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60))
+  .replace(/[ー゛゜・･]/g, "")
+  .replace(/[^0-9a-zぁ-ん一-龥]/g, "");
+for (const s of D) { s.kq = kana(s.q); s.kn = kana(s.n); }
+
+const PICKS = { a: "#pArea", k: "#pKind", s: "#pSauna", m: "#pMizu", y: "#pYen" };
+function picked() {
+  const f = { area: $("#pArea").value, kind: $("#pKind").value,
+    saunaMin: +$("#pSauna").value || 0, mizuMax: +$("#pMizu").value || 0,
+    yenMax: +$("#pYen").value || 0, women: womenOnly };
+  const q = $("#q").value.trim();
+  if (q) f.name = kana(q);
+  return f;
+}
+function matchPicked(s, f) {
+  if (f.women && s.men) return false;
+  if (f.kind && s.k !== f.kind) return false;
+  if (f.area && s.r !== f.area && s.t !== f.area) return false;
+  if (f.saunaMin && !(s.tp && s.tp >= f.saunaMin)) return false;
+  if (f.mizuMax && !(s.mt && s.mt <= f.mizuMax)) return false;
+  if (f.yenMax && !(s.y && s.y <= f.yenMax)) return false;
+  if (f.name && !s.kq.includes(f.name) && !s.kn.includes(f.name)) return false;
+  return true;
+}
+function explainPicked(f) {
+  const p = [];
+  if (f.area) p.push(["a", esc(f.area)]);
+  if (f.kind) p.push(["k", esc(f.kind)]);
+  if (f.saunaMin) p.push(["s", esc($("#pSauna").selectedOptions[0].textContent)]);
+  if (f.mizuMax) p.push(["m", esc($("#pMizu").selectedOptions[0].textContent)]);
+  if (f.yenMax) p.push(["y", esc($("#pYen").selectedOptions[0].textContent)]);
+  if (f.women) p.push(["w", "女性も入れる"]);
+  if (f.name) p.push(["q", "「" + esc($("#q").value.trim()) + "」"]);
+  return p;
+}
+
 let shown = 24, list = [];
 function search() {
-  const q = $("#q").value.trim();
-  const f = parse(q);
-  list = D.filter((s) => match(s, f));
-  let note = "";
-  if (!list.length) {
-    const NAME = { words: "言葉", yenMax: "料金", mizuMax: "水風呂の温度", saunaMin: "サウナの温度", area: "場所", kind: "種類" };
-    const l = loosen(f);
-    if (l) { list = l.list; note = NAME[l.dropped] + "の条件を外すと、これだけありました"; }
-    else note = "この条件では見つかりませんでした";
-  }
+  const f = picked();
+  list = D.filter((s) => matchPicked(s, f));
+  const note = list.length ? "" : "この条件では見つかりませんでした。どれかを「どこでも」「何度でも」に戻してみてください";
   // 水風呂が冷たい順 → サウナが熱い順。サウナを探す人が見たい順に
   list.sort((a, b) => (a.mt ? a.mt : 99) - (b.mt ? b.mt : 99) || (b.tp || 0) - (a.tp || 0));
-  const p = explain(f);
-  $("#how").innerHTML = (q && p.length ? '<span class="hint">こう読みました：</span>' + p.map((x) => "<i>" + x + "</i>").join("") : "")
+  const p = explainPicked(f);
+  $("#qc").hidden = !$("#q").value.trim();
+  $("#how").innerHTML = (p.length
+    ? '<span class="hint">この条件で：</span>'
+      + p.map(([k, label]) => `<button type="button" class="cond" data-k="${k}" title="この条件を外す">${label}<span aria-hidden="true">×</span></button>`).join("")
+      + (p.length > 1 ? '<button type="button" class="cond all" data-k="*">ぜんぶ外す</button>' : "")
+    : "")
     + (note ? '<span class="loose">' + note + "</span>" : "");
   shown = 24; render();
 }
@@ -195,7 +259,17 @@ if (wo) wo.onchange = () => { womenOnly = wo.checked; search(); };
 
 $("#q").oninput = search;
 $("#more").onclick = () => { shown += 48; render(); };
-document.querySelectorAll(".ex").forEach((b) => { b.onclick = () => { $("#q").value = b.textContent; search(); $("#q").focus(); }; });
+document.querySelectorAll(".picks select").forEach((el) => { el.onchange = search; });
+$("#qc").onclick = () => { $("#q").value = ""; $("#q").focus(); search(); };
+$("#how").addEventListener("click", (e) => {
+  const t = e.target.closest(".cond"); if (!t) return;
+  const k = t.dataset.k;
+  if (k === "*") { for (const el of Object.values(PICKS)) $(el).value = ""; $("#q").value = ""; womenOnly = false; if (wo) wo.checked = false; }
+  else if (k === "q") $("#q").value = "";
+  else if (k === "w") { womenOnly = false; if (wo) wo.checked = false; }
+  else $(PICKS[k]).value = "";
+  search();
+});
 search();
 
 </script>
