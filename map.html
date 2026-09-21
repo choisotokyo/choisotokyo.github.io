@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=8d3af507">
+<link rel="stylesheet" href="style.css?v=8cdfdef8">
 
 
 </head>
@@ -68,10 +68,11 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 const map = L.map("map", { zoomControl: true, attributionControl: true }).setView([35.681, 139.767], 13);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+const gray = (name) => L.tileLayer(
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_" + name + "/MapServer/tile/{z}/{y}/{x}",
+  { maxNativeZoom: 16, maxZoom: 18, attribution: "Tiles &copy; Esri" });
+gray("Base").addTo(map);
+gray("Reference").addTo(map);   // 区名や主要な道路名はこちらの層
 
 const pin = (s, on) => L.divIcon({
   className: "tear" + (s.w ? " gold" : "") + (on ? " on" : ""),

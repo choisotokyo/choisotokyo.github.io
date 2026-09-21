@@ -158,7 +158,7 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 /* 一覧と地図を横に並べる。どちらを触ってももう片方が動く */
 .mapwrap { display: grid; grid-template-columns: 340px 1fr; gap: 0; margin: 20px -20px 0;
   height: min(74vh, 700px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-#map { height: 100%; background: #e8e4dc; }
+#map { height: 100%; background: #f5f5f2; }
 .mlist { list-style: none; margin: 0; padding: 0; overflow-y: auto; border-right: 1px solid var(--line); background: var(--ground); }
 .mlist .mrow { border-bottom: 1px solid var(--line); position: relative; }
 .mlist .mrow > button { display: flex; gap: 11px; width: 100%; text-align: left; padding: 12px 14px 10px;
@@ -182,10 +182,7 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
   .mlist { border-right: 0; border-top: 1px solid var(--line); max-height: 60vh; order: 2; }
   #map { order: 1; height: 48vh; }
 }
-.leaflet-container { background: #ffffff; font: inherit; }
-/* 地図は場所の見当をつけるためだけにある。道路の赤も公園の緑も店選びには関係がなく、
-   店のピンと駅名がそれに負けていた。色を抜いて白を透かし、全体を紙のように薄くする */
-.leaflet-tile-pane { filter: saturate(.22) brightness(1.06); opacity: .8; }
+.leaflet-container { background: #f5f5f2; font: inherit; }
 .leaflet-control-attribution { background: rgba(255,255,255,.85) !important; color: #555 !important; font-size: 10px; }
 .leaflet-control-attribution a { color: #36c !important; }
 .leaflet-bar a { background: #fff !important; color: #222 !important; border-color: #ccc !important; }
