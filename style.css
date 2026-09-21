@@ -46,9 +46,27 @@ section { padding-block: 56px 0; }
 .heroText .tagline { color: #e6e0d6; font-size: 15px; }
 
 .search { padding-block: 40px 0; }
-.search input { width: 100%; font: 15px/1.6 var(--sans); color: var(--ink); background: var(--panel);
-  border: 1px solid var(--line); border-radius: 2px; padding: 15px 18px; }
-.search input::placeholder { color: var(--ink-3); }
+/* 入力欄・消すボタン・探すボタンを一つの枠に収める（よくある検索欄の作り） */
+.searchbar { display: flex; align-items: center; gap: 10px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 2px; padding: 0 0 0 16px; transition: border-color .15s ease; }
+.searchbar:focus-within { border-color: var(--gold-soft); }
+.searchbar .mag { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--ink-3); stroke-width: 1.8; stroke-linecap: round; }
+.searchbar input { flex: 1; min-width: 0; width: auto; font: 15px/1.6 var(--sans); color: var(--ink);
+  background: transparent; border: 0; padding: 15px 0; }
+.searchbar input:focus { outline: none; }
+.searchbar input::placeholder { color: var(--ink-3); }
+.searchbar input::-webkit-search-cancel-button { display: none; }
+.searchbar .clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255,255,255,.07); color: var(--ink-3); font: 400 15px/1 var(--sans); }
+.searchbar .clear:hover { background: rgba(255,255,255,.14); color: var(--ink); }
+.searchbar #qb { flex: none; align-self: stretch; padding: 0 28px; border: 0; cursor: pointer;
+  background: var(--gold); color: #0c0c0d; font: 700 14px/1 var(--sans); letter-spacing: .12em; }
+.searchbar #qb:hover { filter: brightness(1.08); }
+@media (max-width: 560px) {
+  .searchbar { flex-wrap: wrap; padding: 0 12px; }
+  .searchbar input { padding: 13px 0; }
+  .searchbar #qb { width: 100%; margin: 0 -12px; padding: 14px 0; }
+}
 input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
 .count { color: var(--ink-3); font-size: 12px; letter-spacing: .1em; margin: 10px 0 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
@@ -83,6 +101,9 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 1px solid 
 .ex:hover { color: var(--gold); border-color: var(--gold); border-style: solid; }
 .how { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 0; min-height: 18px; }
 .how .hint { font-size: 11px; letter-spacing: .1em; color: var(--ink-3); }
+.how .miss { flex-basis: 100%; font-size: 12px; line-height: 1.8; color: #d9a3a3; }
+.search .sec-lead b { color: var(--ink); font-weight: 500; }
+.search .sec-lead .warn { display: block; margin-top: 8px; font-size: 13px; color: var(--ink-3); }
 .how i { font-style: normal; font-size: 11.5px; color: var(--gold); border: 1px solid rgba(194,161,92,.45);
          border-radius: 2px; padding: 4px 8px; }
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 0; }
@@ -251,6 +272,19 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
 .trivia ul { margin: 0; padding-left: 1.3em; }
 .trivia li { margin-bottom: 10px; color: var(--ink-2); }
+/* 検索の欄。ここだけ見出しが無くて、何の欄か分からなかった */
+.search .sec-lead { margin-bottom: 18px; }
+.search .examples .hint, .search .filters .hint { font-size: 11.5px; letter-spacing: .1em; color: var(--ink-3); margin-right: 10px; }
+.search .count { font: 500 13px/1 var(--sans); letter-spacing: .06em; color: var(--gold); margin-top: 16px; }
+/* 絞り込みと件数。結果との間に線を引いて、どこまでが操作でどこからが結果かを分ける */
+.search .filters { margin-top: 18px; }
+.search .count { display: block; padding-top: 16px; margin-top: 18px; border-top: 1px solid var(--line);
+  font: 500 13.5px/1 var(--sans); letter-spacing: .06em; color: var(--ink-2); }
+.search .count b { color: var(--gold); font-weight: 700; }
+/* 海外の街は国ごとに並べる */
+.abroads .abroad { margin-top: 22px; }
+.abroads .abroad h3 { font: 700 15px/1 var(--serif); color: var(--gold); margin: 0 0 12px; letter-spacing: .06em; }
+
 /* 街を地図から選ぶ。丸の大きさと数字で、どこに何軒あるかを見せる */
 #amap { height: min(68vh, 720px); border: 1px solid var(--line); margin: 0 0 40px; background: #0f0f10; }
 .apill span { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; padding: 5px 10px; border-radius: 999px; background: rgba(12,12,13,.9); border: 1px solid var(--gold-soft); box-shadow: 0 2px 10px rgba(0,0,0,.5); transition: background .12s ease, color .12s ease; }
