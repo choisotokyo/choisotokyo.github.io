@@ -159,7 +159,7 @@ function drawList() {
         ${s.p ? `<u>${esc(s.p)}</u>` : ""}
       </span>
     </button>
-    <a class="go" href="s/${s.i}.html">記録を見る</a>
+    <a class="go" href="s/${s.i}.html">くわしく</a>
   </li>`).join("") + (shown.length > 300 ? '<li class="more">多すぎるので300店まで出しています。絞り込むと残りも出ます</li>' : "");
   document.querySelectorAll("#mlist .mrow button").forEach((b) => {
     const id = b.parentElement.dataset.i;
