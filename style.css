@@ -196,6 +196,13 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .mp i { display: block; font-style: normal; font-size: 11px; color: var(--gold); margin: 3px 0; }
 .mp em { display: block; font-style: normal; font-size: 12px; line-height: 1.6; color: var(--ink-2); }
 .mp u { display: block; text-decoration: none; font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+/* 駅。名前つきで置いて、どの駅の近くかを分かるようにする */
+.sta { pointer-events: none; }
+.sta b { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%;
+  background: #2f6fd0; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+.sta span { position: absolute; left: 9px; top: -9px; white-space: nowrap;
+  font: 700 11px/1 var(--sans); color: #17325c; background: rgba(255,255,255,.88);
+  border-radius: 2px; padding: 3px 5px; box-shadow: 0 1px 2px rgba(0,0,0,.18); }
 /* 涙型のピン。丸い点よりどこを指しているか分かる */
 .tear b { display: block; width: 22px; height: 22px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
   background: #5a564e; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,.4); }
