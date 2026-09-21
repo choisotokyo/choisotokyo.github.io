@@ -183,6 +183,9 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
   #map { order: 1; height: 48vh; }
 }
 .leaflet-container { background: #e8e4dc; font: inherit; }
+/* 道路の色を落とす。首都高が太い赤で出ても店選びには関係がなく、
+   店のピンと駅名がそれに負けていた。地図は場所の見当をつけるためだけにある */
+.leaflet-tile-pane { filter: saturate(.35) brightness(1.05) contrast(.95); }
 .leaflet-control-attribution { background: rgba(255,255,255,.85) !important; color: #555 !important; font-size: 10px; }
 .leaflet-control-attribution a { color: #36c !important; }
 .leaflet-bar a { background: #fff !important; color: #222 !important; border-color: #ccc !important; }
