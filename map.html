@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=3bab02a7">
+<link rel="stylesheet" href="style.css?v=43add76f">
 
 
 </head>
@@ -39,7 +39,7 @@
 <section class="maphead">
   <p class="eyebrow">MAP</p>
   <h1>地図で見る<span class="n" id="mcount"></span></h1>
-  <p class="sec-lead">座標が分かっている1,344軒を地図にしました。左の一覧と地図は連動します。現在地を出すと、一覧が近い順に並び替わります。</p>
+  <p class="sec-lead">座標が分かっている1,344軒を地図にしました。一覧と地図は連動します。現在地を出すと、一覧が近い順に並び替わります。</p>
   <p class="mbtns"><button id="mlocate" type="button">現在地を出す</button><button id="mfit" type="button">全体を見る</button></p>
   <p class="mnote" id="mnote" aria-live="polite"></p>
   <p class="filters" id="mchips">
@@ -174,6 +174,11 @@ function select(id, fromList) {
   if (!mk) return;
   for (const [k, m] of byId) m.setIcon(pin(m.store, k === id));
   if (fromList) {
+    // 画面が狭いときは一覧が地図の下にあるので、押したら地図が見える位置まで戻す
+    if (window.matchMedia("(max-width: 800px)").matches) {
+      const wrap = document.querySelector(".mapwrap");
+      if (wrap) window.scrollTo({ top: wrap.offsetTop - 4, behavior: "smooth" });
+    }
     group.zoomToShowLayer(mk, () => { map.setView(mk.getLatLng(), Math.max(map.getZoom(), 16)); mk.openPopup(); });
   } else {
     const row = document.querySelector('#mlist .mrow[data-i="' + id + '"]');

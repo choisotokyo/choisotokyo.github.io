@@ -179,9 +179,22 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .mlist .go:hover { color: var(--gold); border-color: var(--gold); }
 .mlist .more { padding: 16px 14px; font-size: 11px; color: var(--ink-3); }
 @media (max-width: 800px) {
-  .mapwrap { grid-template-columns: 1fr; grid-template-rows: 48vh auto; height: auto; }
-  .mlist { border-right: 0; border-top: 1px solid var(--line); max-height: 60vh; order: 2; }
-  #map { order: 1; height: 48vh; }
+  /* 見出しと絞り込みで画面が埋まって、地図が下に押し出されていた。詰める */
+  .maphead { padding-block: 22px 0; }
+  .maphead h1 { font-size: clamp(24px, 7vw, 32px); }
+  .maphead .sec-lead { font-size: 12.5px; line-height: 1.8; margin-bottom: 14px; }
+  .mbtns { margin-top: 12px; }
+  /* 絞り込みは3行に折り返していた。1行にして横に流す */
+  #mchips { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; margin: 12px -20px 0; padding: 0 20px 2px;
+    scrollbar-width: none; }
+  #mchips::-webkit-scrollbar { display: none; }
+  #mchips .chip { flex: none; }
+
+  .mapwrap { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
+  /* 一覧をページの中でさらにスクロールさせない（指での二重スクロールは扱いにくい） */
+  .mlist { border-right: 0; border-top: 1px solid var(--line); max-height: none; overflow: visible; order: 2; }
+  /* 地図を貼り付けると一覧と重なって透けるので、素直に一緒にスクロールさせる */
+  #map { order: 1; height: 56vh; }
 }
 .leaflet-container { background: #f5f5f2; font: inherit; }
 .leaflet-control-attribution { background: rgba(255,255,255,.85) !important; color: #555 !important; font-size: 10px; }
