@@ -251,6 +251,20 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
 .trivia ul { margin: 0; padding-left: 1.3em; }
 .trivia li { margin-bottom: 10px; color: var(--ink-2); }
+/* 街を地図から選ぶ。丸の大きさと数字で、どこに何軒あるかを見せる */
+#amap { height: min(68vh, 720px); border: 1px solid var(--line); margin: 0 0 40px; background: #0f0f10; }
+.apill span { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; padding: 5px 10px; border-radius: 999px; background: rgba(12,12,13,.9); border: 1px solid var(--gold-soft); box-shadow: 0 2px 10px rgba(0,0,0,.5); transition: background .12s ease, color .12s ease; }
+.apill i { font: 500 12.5px/1 var(--sans); font-style: normal; letter-spacing: .04em; color: var(--ink); }
+.apill b { font: 700 11px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--gold); }
+.apill.big span { padding: 7px 13px; border-width: 2px; background: rgba(12,12,13,.95); }
+.apill.big i { font-size: 14.5px; font-weight: 700; }
+.apill.big b { font-size: 12.5px; }
+.apill.hide { display: none; }
+.apill:hover span { background: var(--gold); }
+.apill:hover i, .apill:hover b { color: #0c0c0d; }
+.leaflet-tooltip.atip { background: rgba(12,12,13,.94); border: 1px solid var(--line); color: var(--ink); font: 500 12px/1.5 var(--sans); letter-spacing: .04em; box-shadow: none; }
+.leaflet-tooltip.atip::before { display: none; }
+
 /* 月ごとの特集。バックナンバーの一覧 */
 .issues { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
 .issues a { display: grid; gap: 8px; }
