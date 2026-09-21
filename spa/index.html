@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 
-<link rel="stylesheet" href="../style.css?v=ff70a7ae">
+<link rel="stylesheet" href="../style.css?v=5722af91">
 
 </head>
 <body>
@@ -95,78 +95,6 @@ const D = [{"i":"かるまる池袋","n":"サウナ&ホテル かるまる池袋
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const norm = (s) => String(s || "").normalize("NFKC").toLowerCase().replace(/[ 　]/g, "");
-
-const VOCAB = (() => {
-  const areas = new Set(), kinds = new Set();
-  for (const s of D) { if (s.r) areas.add(s.r); if (s.t) areas.add(s.t); if (s.k) kinds.add(s.k); }
-  const byLen = (a) => [...a].sort((x, y) => y.length - x.length);
-  return { areas: byLen(areas), kinds: byLen(kinds) };
-})();
-
-const STOP = ["以下", "以上", "以内", "くらい", "ぐらい", "ほど", "こと", "とこ", "ところ", "施設", "お風呂", "風呂"];
-
-function parse(q) {
-  const raw = q.trim();
-  let rest = norm(raw);
-  const f = { area: "", kind: "", saunaMin: 0, mizuMax: 0, yenMax: 0, words: [], women: womenOnly };
-  const eat = (w) => { const i = rest.indexOf(norm(w)); if (i < 0) return false; rest = rest.slice(0, i) + " " + rest.slice(i + norm(w).length); return true; };
-
-  // 水風呂◯℃以下 / サウナ◯℃以上
-  const mizu = raw.match(/水風呂\s*(\d{1,2})\s*[℃度]?\s*(以下|未満)?/);
-  if (mizu) { f.mizuMax = +mizu[1]; eat(mizu[0]); }
-  const sauna = raw.match(/サウナ\s*(\d{2,3})\s*[℃度]?\s*(以上)?/);
-  if (sauna) { f.saunaMin = +sauna[1]; eat(sauna[0]); }
-  // 「シングル」= 一桁の水風呂
-  if (/シングル/.test(raw)) { f.mizuMax = 10; eat("シングル"); }
-  // ◯円以下
-  const yen = raw.replace(/,/g, "").match(/(\d{3,5})\s*円\s*(以下|以内|まで)?/);
-  if (yen) { f.yenMax = +yen[1]; eat(yen[0]); }
-
-  for (const k of VOCAB.kinds) if (!f.kind && eat(k)) f.kind = k;
-  for (const a of VOCAB.areas) if (!f.area && eat(a)) f.area = a;
-
-  f.words = rest.split(/[\s、。,]+/)
-    .map((w) => w.replace(/^(で|の|は|が|を|に|と|も|や|から|まで)+/, ""))
-    .map((w) => w.replace(/(で|の|は|が|を|に|と|も|や|探して|教えて)+$/, ""))
-    .filter((w) => (w.length >= 2 || /[一-龥]/.test(w)) && !STOP.includes(w));
-  // どの施設にも出てこない語は条件から落とす（日本語は語の切れ目が無いので切れ端が残る）
-  f.dropped = f.words.filter((w) => !D.some((s) => s.q.includes(w)));
-  f.words = f.words.filter((w) => !f.dropped.includes(w));
-  return f;
-}
-
-function match(s, f) {
-  if (f.women && s.men) return false;
-  if (f.kind && s.k !== f.kind) return false;
-  if (f.area && s.r !== f.area && s.t !== f.area) return false;
-  if (f.saunaMin && !(s.tp && s.tp >= f.saunaMin)) return false;
-  if (f.mizuMax && !(s.mt && s.mt <= f.mizuMax)) return false;
-  if (f.yenMax && !(s.y && s.y <= f.yenMax)) return false;
-  return f.words.every((w) => s.q.includes(w));
-}
-
-function explain(f) {
-  const p = [];
-  if (f.area) p.push(esc(f.area));
-  if (f.kind) p.push(esc(f.kind));
-  if (f.saunaMin) p.push(`サウナ ${f.saunaMin}℃以上`);
-  if (f.mizuMax) p.push(`水風呂 ${f.mizuMax}℃以下`);
-  if (f.yenMax) p.push(`${f.yenMax.toLocaleString()}円以下`);
-  if (f.women) p.push("女性も入れる");
-  for (const w of f.words) p.push(esc(w));
-  return p;
-}
-
-function loosen(f) {
-  for (const k of ["words", "yenMax", "mizuMax", "saunaMin", "area", "kind"]) {
-    if (!f[k] || (Array.isArray(f[k]) && !f[k].length)) continue;
-    const g = { ...f, [k]: Array.isArray(f[k]) ? [] : (typeof f[k] === "number" ? 0 : "") };
-    const hit = D.filter((s) => match(s, g));
-    if (hit.length) return { list: hit, dropped: k };
-  }
-  return null;
-}
 
 
 const pick = (el, opts, head) => {
@@ -225,7 +153,7 @@ let shown = 24, list = [];
 function search() {
   const f = picked();
   list = D.filter((s) => matchPicked(s, f));
-  const note = list.length ? "" : "この条件では見つかりませんでした。どれかを「どこでも」「何度でも」に戻してみてください";
+  const note = list.length ? "" : "この条件では見つかりませんでした。上の条件の × を押して、どれか外してみてください";
   // 水風呂が冷たい順 → サウナが熱い順。サウナを探す人が見たい順に
   list.sort((a, b) => (a.mt ? a.mt : 99) - (b.mt ? b.mt : 99) || (b.tp || 0) - (a.tp || 0));
   const p = explainPicked(f);

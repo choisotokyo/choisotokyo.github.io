@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=ff70a7ae">
+<link rel="stylesheet" href="style.css?v=5722af91">
 
 
 </head>
@@ -44,7 +44,7 @@
   <p class="mnote" id="mnote" aria-live="polite"></p>
   <p class="filters" id="mchips">
     <button type="button" class="chip" data-f="理由" aria-pressed="true">わざわざ行く価値がある</button>
-    <button type="button" class="chip" data-f="推し">また行きたい</button>
+    <button type="button" class="chip" data-f="推し">また行きたい店</button>
     <button type="button" class="chip" data-g="ラーメン" aria-pressed="false">ラーメン</button><button type="button" class="chip" data-g="カフェ" aria-pressed="false">カフェ</button><button type="button" class="chip" data-g="スイーツ" aria-pressed="false">スイーツ</button><button type="button" class="chip" data-g="焼肉" aria-pressed="false">焼肉</button><button type="button" class="chip" data-g="イタリアン" aria-pressed="false">イタリアン</button><button type="button" class="chip" data-g="和食・定食" aria-pressed="false">和食・定食</button><button type="button" class="chip" data-g="肉料理" aria-pressed="false">肉料理</button><button type="button" class="chip" data-g="海鮮・魚" aria-pressed="false">海鮮・魚</button><button type="button" class="chip" data-g="町中華" aria-pressed="false">町中華</button><button type="button" class="chip" data-g="バー" aria-pressed="false">バー</button>
   </p>
 </section>
@@ -160,7 +160,7 @@ function drawList() {
       </span>
     </button>
     <a class="go" href="s/${s.i}.html">くわしく</a>
-  </li>`).join("") + (shown.length > 300 ? '<li class="more">多すぎるので300店まで出しています。絞り込むと残りも出ます</li>' : "");
+  </li>`).join("") + (shown.length > 300 ? '<li class="more">数が多いので300店まで出しています。絞り込むと残りも出ます</li>' : "");
   document.querySelectorAll("#mlist .mrow button").forEach((b) => {
     const id = b.parentElement.dataset.i;
     b.onclick = () => { pinned = id; select(id, true); };

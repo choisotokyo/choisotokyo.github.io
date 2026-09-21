@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="../style.css?v=ff70a7ae">
+<link rel="stylesheet" href="../style.css?v=5722af91">
 
 </head>
 <body>
@@ -147,7 +147,7 @@ function drawList() {
       </span>
     </button>
     <a class="go" href="s/${encodeURIComponent(s.i)}.html">くわしく</a>
-  </li>`).join("") + (shown.length > 300 ? '<li class="more">多すぎるので300か所まで出しています。絞り込むと残りも出ます</li>' : "");
+  </li>`).join("") + (shown.length > 300 ? '<li class="more">数が多いので300か所まで出しています。絞り込むと残りも出ます</li>' : "");
   document.querySelectorAll("#mlist .mrow button").forEach((b) => {
     const id = b.parentElement.dataset.i;
     b.onclick = () => { pinned = id; select(id, true); };
