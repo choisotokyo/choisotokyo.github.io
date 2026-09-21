@@ -161,17 +161,17 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 #map { height: 100%; background: #f5f5f2; }
 .mlist { list-style: none; margin: 0; padding: 0; overflow-y: auto; border-right: 1px solid var(--line); background: var(--ground); }
 .mlist .mrow { border-bottom: 1px solid var(--line); position: relative; }
-.mlist .mrow > button { display: flex; gap: 11px; width: 100%; text-align: left; padding: 12px 14px 10px;
+.mlist .mrow > button { display: flex; gap: 12px; width: 100%; text-align: left; padding: 13px 14px 11px;
   background: transparent; border: 0; cursor: pointer; color: inherit; font: inherit; }
 .mlist .mrow.on { background: rgba(194,161,92,.10); box-shadow: inset 3px 0 0 var(--gold); }
 .mlist .mrow:hover, .mlist .mrow.hi { background: rgba(255,255,255,.05); }
 .mlist .mrow.hi { box-shadow: inset 3px 0 0 var(--gold-soft); }
-.mlist img, .mlist .noph { width: 56px; height: 56px; object-fit: cover; flex: none; background: var(--panel); }
+.mlist img, .mlist .noph { width: 88px; height: 88px; object-fit: cover; flex: none; background: var(--panel); }
 .mlist .t { min-width: 0; display: block; }
-.mlist .t b { display: block; font: 700 13.5px/1.45 var(--serif); color: var(--ink); overflow-wrap: anywhere; }
+.mlist .t b { display: block; font: 700 14.5px/1.45 var(--serif); color: var(--ink); overflow-wrap: anywhere; }
 .mlist .t b .st { color: var(--gold); font-style: normal; font-size: 11px; }
 .mlist .t i { display: block; font-style: normal; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
-.mlist .t em { display: inline-block; font-style: normal; font-size: 10px; letter-spacing: .04em; color: var(--gold);
+.mlist .t em { display: inline-block; margin-right: 4px; font-style: normal; font-size: 10px; letter-spacing: .04em; color: var(--gold);
   border: 1px solid var(--gold-soft); border-radius: 999px; padding: 2px 7px; margin-top: 5px; }
 .mlist .t u { display: block; text-decoration: none; font-size: 11px; color: var(--ink-3); margin-top: 4px; }
 .mlist .go { position: absolute; right: 12px; bottom: 10px; font: 10px/1 var(--sans); letter-spacing: .08em;
