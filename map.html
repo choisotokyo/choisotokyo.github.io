@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=a558cf33">
+<link rel="stylesheet" href="style.css?v=6de1d142">
 
 
 </head>
@@ -155,6 +155,7 @@ function drawList() {
         <b>${esc(s.n)}${s.s ? ' <i class="st">★</i>' : ""}</b>
         <i>${esc(s.b || s.g)}${s.t ? " · " + esc(s.t) : ""}${s.dist ? " · " + s.dist : ""}</i>
         ${badge(s)}
+        ${(s.wy || s.h) ? `<span class="ln">${esc(s.wy || s.h)}</span>` : ""}
         ${s.p ? `<u>${esc(s.p)}</u>` : ""}
       </span>
     </button>

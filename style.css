@@ -160,7 +160,7 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
   height: min(74vh, 700px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 #map { height: 100%; background: #f5f5f2; }
 .mlist { list-style: none; margin: 0; padding: 0; overflow-y: auto; border-right: 1px solid var(--line); background: var(--ground); }
-.mlist .mrow { border-bottom: 1px solid var(--line); position: relative; }
+.mlist .mrow { border-bottom: 1px solid var(--line); }
 .mlist .mrow > button { display: flex; gap: 12px; width: 100%; text-align: left; padding: 13px 14px 11px;
   background: transparent; border: 0; cursor: pointer; color: inherit; font: inherit; }
 .mlist .mrow.on { background: rgba(194,161,92,.10); box-shadow: inset 3px 0 0 var(--gold); }
@@ -173,9 +173,11 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .mlist .t i { display: block; font-style: normal; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
 .mlist .t em { display: inline-block; margin-right: 4px; font-style: normal; font-size: 10px; letter-spacing: .04em; color: var(--gold);
   border: 1px solid var(--gold-soft); border-radius: 999px; padding: 2px 7px; margin-top: 5px; }
-.mlist .t u { display: block; text-decoration: none; font-size: 11px; color: var(--ink-3); margin-top: 4px; }
-.mlist .go { position: absolute; right: 12px; bottom: 10px; font: 10px/1 var(--sans); letter-spacing: .08em;
-  color: var(--ink-3); text-decoration: none; border: 1px solid var(--line); border-radius: 2px; padding: 5px 7px; }
+.mlist .t .ln { display: block; font-size: 12px; line-height: 1.65; color: var(--ink-2); margin-top: 6px; }
+.mlist .t u { display: block; text-decoration: none; font-size: 11px; color: var(--ink-3); margin-top: 5px; }
+/* 本文の上に重なるので、浮かせずに行の最後に置く */
+.mlist .go { display: block; width: fit-content; margin: 0 14px 12px auto; font: 10px/1 var(--sans); letter-spacing: .08em;
+  color: var(--ink-3); text-decoration: none; border: 1px solid var(--line); border-radius: 2px; padding: 6px 9px; }
 .mlist .go:hover { color: var(--gold); border-color: var(--gold); }
 .mlist .more { padding: 16px 14px; font-size: 11px; color: var(--ink-3); }
 @media (max-width: 800px) {
