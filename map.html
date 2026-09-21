@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
-<link rel="stylesheet" href="style.css?v=8cdfdef8">
+<link rel="stylesheet" href="style.css?v=3bab02a7">
 
 
 </head>
@@ -94,6 +94,7 @@ function syncStations() {
   } else if (map.hasLayer(stationLayer)) map.removeLayer(stationLayer);
 }
 map.on("zoomend moveend", syncStations);
+map.on("popupclose", () => { pinned = ""; });
 
 const group = L.markerClusterGroup({
   maxClusterRadius: 44, showCoverageOnHover: false,
@@ -104,6 +105,8 @@ const group = L.markerClusterGroup({
 });
 
 let shown = [], byId = new Map();
+let pinned = "";                                   // クリックで開いたもの（かざしただけのものと区別する）
+const canHover = window.matchMedia("(hover: hover)").matches;   // 指で触る画面では、かざす動作が無い
 
 const popupOf = (s) =>
   '<a class="mp" href="s/' + s.i + '.html">'
@@ -121,7 +124,12 @@ function build(list) {
   const marks = shown.map((s) => {
     const mk = L.marker([s.lat, s.lon], { icon: pin(s, false), title: s.n });
     mk.bindPopup(popupOf(s), { maxWidth: 270 });
-    mk.on("click", () => select(s.i, false));
+    mk.on("click", () => { pinned = s.i; select(s.i, false); });
+    if (canHover) {
+      // かざしただけで中身が見えるようにする。離したら閉じる（クリックで開いたものは残す）
+      mk.on("mouseover", () => { if (pinned !== s.i) mk.openPopup(); highlightRow(s.i, true); });
+      mk.on("mouseout", () => { if (pinned !== s.i) mk.closePopup(); highlightRow(s.i, false); });
+    }
     mk.store = s;
     byId.set(s.i, mk);
     return mk;
@@ -146,8 +154,18 @@ function drawList() {
     <a class="go" href="s/${s.i}.html">記録を見る</a>
   </li>`).join("") + (shown.length > 300 ? '<li class="more">多すぎるので300店まで出しています。絞り込むと残りも出ます</li>' : "");
   document.querySelectorAll("#mlist .mrow button").forEach((b) => {
-    b.onclick = () => select(b.parentElement.dataset.i, true);
+    const id = b.parentElement.dataset.i;
+    b.onclick = () => { pinned = id; select(id, true); };
+    if (canHover) {
+      b.onmouseenter = () => { const m = byId.get(id); if (m && pinned !== id) m.setIcon(pin(m.store, true)); };
+      b.onmouseleave = () => { const m = byId.get(id); if (m && pinned !== id) m.setIcon(pin(m.store, false)); };
+    }
   });
+}
+
+function highlightRow(id, on) {
+  const row = document.querySelector('#mlist .mrow[data-i="' + id + '"]');
+  if (row) row.classList.toggle("hi", on);
 }
 
 function select(id, fromList) {

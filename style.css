@@ -164,7 +164,8 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .mlist .mrow > button { display: flex; gap: 11px; width: 100%; text-align: left; padding: 12px 14px 10px;
   background: transparent; border: 0; cursor: pointer; color: inherit; font: inherit; }
 .mlist .mrow.on { background: rgba(194,161,92,.10); box-shadow: inset 3px 0 0 var(--gold); }
-.mlist .mrow:hover { background: rgba(255,255,255,.03); }
+.mlist .mrow:hover, .mlist .mrow.hi { background: rgba(255,255,255,.05); }
+.mlist .mrow.hi { box-shadow: inset 3px 0 0 var(--gold-soft); }
 .mlist img, .mlist .noph { width: 56px; height: 56px; object-fit: cover; flex: none; background: var(--panel); }
 .mlist .t { min-width: 0; display: block; }
 .mlist .t b { display: block; font: 700 13.5px/1.45 var(--serif); color: var(--ink); overflow-wrap: anywhere; }
