@@ -1,5 +1,5 @@
 :root {
-  --ground: #0c0c0d; --panel: #141416; --ink: #f0ece5; --ink-2: #b3ada2; --ink-3: #7d786f;
+  --ground: #0b0a09; --panel: #141416; --ink: #f0ece5; --ink-2: #b3ada2; --ink-3: #7d786f;
   --line: #26262a; --gold: #c2a15c; --gold-soft: #4a3c1f;
   --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
@@ -11,7 +11,7 @@ img { display: block; width: 100%; height: auto; }
 a { color: inherit; }
 main { max-width: 1060px; margin: 0 auto; padding: 0 20px 80px; }
 
-header.site { position: sticky; top: 0; z-index: 5; background: rgba(12,12,13,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header.site { position: sticky; top: 0; z-index: 5; background: rgba(11,10,9,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 header.site .bar { max-width: 1060px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
 header.site .logo { font: 700 18px/1 var(--serif); letter-spacing: .14em; text-decoration: none; }
 header.site nav { display: flex; gap: 18px; font-size: 12px; letter-spacing: .1em; color: var(--ink-2); }
@@ -26,19 +26,44 @@ h2 { font: 700 clamp(19px, 3vw, 26px)/1.5 var(--serif); margin: 0 0 18px; letter
 section { padding-block: 56px 0; }
 
 /* トップの扉 */
+/* 扉。巻物を送ると、写真が奥から流れ込んで東京の地図の形に集まる。
+   .hero は縦に長い入れ物で、中の .heroStage が画面に貼り付いたまま残る。
+   絵は canvas（site_hero.js）。280枚を1コマずつ動かすので、img を並べるより速い */
+/* 送らなくても勝手に集まるので、縦に長い巻物にはしない。
+   扉は1画面ぶんで、すぐ下に検索が続く */
 .hero { position: relative; padding: 0; margin: 0 -20px; }
-.heroPhotos { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; height: min(62vh, 520px); overflow: hidden; }
-/* 暗い扉にするが、写真は薄くしない。
-   opacity を下げると色が抜けて灰色になる。露出だけ落として色と締まりは上げる（暗いのに中身は見える）*/
-.heroPhotos img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.68) contrast(1.14) saturate(1.06); }
+/* 上のメニュー帯は sticky でずっと残るので、その高さを引く。
+   引かないと扉が帯のぶん下にはみ出して、下端（送る合図）が常に切れる。
+   帯の高さは画面幅で変わる（狭いと折り返す）ので site_hero.js が測って入れる */
+/* 100vh ではなく 100svh。スマホの閲覧器は、巻くと上下の帯が引っ込んで
+   100vh が「帯が隠れたときの高さ」を指す。開いた直後は帯が出ているので、
+   100vh で組むと扉の下が画面からはみ出し、巻いた瞬間に跳ねる。
+   svh（いちばん小さいときの高さ）なら、どの状態でも収まる */
+.heroStage { position: relative; height: calc(100svh - var(--hdr, 0px));
+  overflow: hidden; background: #0b0a09; }
+.heroStage canvas { display: block; width: 100%; height: 100%; }
 /* 四隅を沈めるだけ。中央は写真のまま */
 .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(72% 62% at 50% 46%, rgba(12,12,13,0) 0%, rgba(12,12,13,.30) 62%, rgba(12,12,13,.72) 100%),
-    linear-gradient(rgba(12,12,13,.55) 0%, rgba(12,12,13,0) 18%, rgba(12,12,13,0) 82%, rgba(12,12,13,.55) 100%); }
-.heroText { position: absolute; inset: 0; z-index: 1; display: grid; align-content: center; justify-items: center; text-align: center; padding: 0 20px; }
+  background: radial-gradient(72% 62% at 50% 46%, rgba(11,10,9,0) 0%, rgba(11,10,9,.30) 62%, rgba(11,10,9,.72) 100%),
+    linear-gradient(rgba(11,10,9,.55) 0%, rgba(11,10,9,0) 18%, rgba(11,10,9,0) 82%, rgba(11,10,9,.55) 100%); }
+/* 題字は最後に出る。集まりきる前に出すと、写真の動きと喧嘩する */
+/* 題字は日本の真ん中に重ねる */
+.heroText { position: absolute; inset: 0; z-index: 1; display: grid; align-content: center; justify-items: center; text-align: center; padding: 0 20px;
+  opacity: 0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease; }
+.heroText.on { opacity: 1; transform: none; }
+/* 写真が読めなかったときは、縦長の巻物にせずただの一枚扉に戻す */
+.hero.noHero { height: auto; }
+.hero.noHero .heroStage { position: static; height: min(62vh, 520px); }
+.hero.noHero .heroText { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  /* 動かさない設定のときは、集まりきった姿だけを出す。巻物にもしない */
+  .hero { height: auto; }
+  .heroStage { position: static; height: min(76vh, 640px); }
+  .heroText { opacity: 1; transform: none; transition: none; }
+}
 /* 文字の後ろだけ、輪郭のない影だまりを作る（四角い帯にしない）*/
 .heroText::before { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 52% 26% at 50% 50%, rgba(12,12,13,.86) 0%, rgba(12,12,13,.55) 45%, rgba(12,12,13,0) 78%); }
+  background: radial-gradient(ellipse 46% 18% at 50% 50%, rgba(11,10,9,.82) 0%, rgba(11,10,9,.45) 48%, rgba(11,10,9,0) 80%); }
 .heroText > * { position: relative; max-width: min(760px, 92vw); text-shadow: 0 2px 18px rgba(0,0,0,.9); }
 .heroText h1 { font-size: clamp(34px, 8vw, 64px); }
 .tagline { color: var(--ink-2); margin: 16px 0 0; font-size: 14px; line-height: 2; }
@@ -134,7 +159,7 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .card .ph img { height: 100%; object-fit: cover; transition: transform .6s ease, filter .6s ease; filter: brightness(.92); }
 .card a:hover .ph img { transform: scale(1.04); filter: brightness(1); }
 .card .noph { display: grid; place-items: center; height: 100%; color: var(--ink-3); font-size: 12px; letter-spacing: .1em; }
-.card .badge { position: absolute; top: 10px; left: 10px; background: rgba(12,12,13,.86); color: var(--gold);
+.card .badge { position: absolute; top: 10px; left: 10px; background: rgba(11,10,9,.86); color: var(--gold);
   border: 1px solid var(--gold-soft); font: 500 11px/1 var(--sans); letter-spacing: .1em; padding: 5px 8px; }
 .card .badge, .badge { font: 700 11px/1 var(--sans); letter-spacing: .08em; padding: 5px 8px; border-radius: 2px; }
 .card .mypick { position: absolute; top: 10px; right: 10px; color: var(--gold); font-size: 15px; text-shadow: 0 1px 4px rgba(0,0,0,.7); }
@@ -271,8 +296,13 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 
 /* 店のページ */
 .store { padding-top: 26px; }
-.store .cover { margin: 0 -20px; }
-.store .cover img { max-height: 62vh; object-fit: cover; filter: brightness(.94); }
+/* 店のページの大きい写真は切り抜かない。
+   前は object-fit:cover で「横幅いっぱい×高さ62vh」の帯に押し込んでいたので、
+   縦長の写真ほど上下を大きく削られ、一覧では丼が全部見えているのに
+   店のページでは寄って切れた絵になっていた。
+   写真の形のまま、高さだけ抑えて中央に置く。 */
+.store .cover { margin: 0 -20px; display: flex; justify-content: center; }
+.store .cover img { width: auto; height: auto; max-width: 100%; max-height: 74vh; filter: brightness(.94); }
 .store .head { padding-top: 30px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
 .store .head .badge.inline { color: var(--gold); border: 1px solid var(--gold-soft); font: 500 13px/1 var(--sans); padding: 6px 9px; margin-right: 12px; vertical-align: 8px; }
 .store .hook { font: 500 clamp(15px, 2.4vw, 18px)/1.9 var(--serif); color: var(--ink); margin: 18px 0 0; letter-spacing: .04em; max-width: 46ch; }
@@ -298,6 +328,10 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
    色は青。赤は女性の側の色として見慣れているので、男性専用の札に使うと逆に読める */
 .card .men { display: inline-block; margin-top: 6px; font: 500 11px/1 var(--sans); letter-spacing: .06em;
   color: #8fb6d8; border: 1px solid rgba(143,182,216,.45); border-radius: 2px; padding: 5px 7px; }
+/* 地図の一覧と吹き出しにも同じ札を出す。ここの em は既定が金色の丸札なので、
+   男性専用だけは青に戻す（同じ意味の印が場所によって色違いだと、別の印に見える） */
+.mlist .t em.men, .mp em.men { display: inline-block; font-style: normal; font-size: 10px; letter-spacing: .04em;
+  color: #8fb6d8; border: 1px solid rgba(143,182,216,.45); border-radius: 2px; padding: 2px 7px; margin-top: 5px; }
 /* 湯帳の殿堂。店帳の理由タグと同じ見た目にする（同じ意味の印なので） */
 .card .whytag { display: inline-block; margin-top: 6px; margin-right: 5px; font: 500 11px/1 var(--sans);
   letter-spacing: .06em; color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 2px; padding: 5px 7px; }
@@ -305,24 +339,25 @@ section h2 .n { font: 400 12px/1 var(--sans); letter-spacing: .1em; color: var(-
 .spa-filter input { accent-color: var(--gold); width: 16px; height: 16px; }
 .ladies { margin: 8px 0 0; font-size: 12px; line-height: 1.7; color: var(--ink-3); max-width: 46em; }
 .facts + .ladies { margin-top: 10px; }
-/* 場面（デートに向かない・ひとりで入りやすい）。自分で押して決めたもの */
+/* 場面（デートに向かない・ひとりで入りやすい）。機械が決めたものと、自分で押したもの */
 .scenes { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }
 .scenes i { font-style: normal; font-size: 11.5px; letter-spacing: .04em; color: var(--gold);
   border: 1px solid var(--gold-soft); border-radius: 2px; padding: 5px 8px; }
 .scenes i.ng { color: #e0a9a0; border-color: rgba(224,169,160,.4); }
+.scenes em { font-style: normal; font-size: 12px; line-height: 1.7; color: var(--ink-3); width: 100%; }
 
 /* 街を地図から選ぶ。丸の大きさと数字で、どこに何軒あるかを見せる */
 #amap { height: min(68vh, 720px); border: 1px solid var(--line); margin: 0 0 40px; background: #0f0f10; }
-.apill span { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; padding: 5px 10px; border-radius: 999px; background: rgba(12,12,13,.9); border: 1px solid var(--gold-soft); box-shadow: 0 2px 10px rgba(0,0,0,.5); transition: background .12s ease, color .12s ease; }
+.apill span { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; padding: 5px 10px; border-radius: 999px; background: rgba(11,10,9,.9); border: 1px solid var(--gold-soft); box-shadow: 0 2px 10px rgba(0,0,0,.5); transition: background .12s ease, color .12s ease; }
 .apill i { font: 500 12.5px/1 var(--sans); font-style: normal; letter-spacing: .04em; color: var(--ink); }
 .apill b { font: 700 11px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--gold); }
-.apill.big span { padding: 7px 13px; border-width: 2px; background: rgba(12,12,13,.95); }
+.apill.big span { padding: 7px 13px; border-width: 2px; background: rgba(11,10,9,.95); }
 .apill.big i { font-size: 14.5px; font-weight: 700; }
 .apill.big b { font-size: 12.5px; }
 .apill.hide { display: none; }
 .apill:hover span { background: var(--gold); }
-.apill:hover i, .apill:hover b { color: #0c0c0d; }
-.leaflet-tooltip.atip { background: rgba(12,12,13,.94); border: 1px solid var(--line); color: var(--ink); font: 500 12px/1.5 var(--sans); letter-spacing: .04em; box-shadow: none; }
+.apill:hover i, .apill:hover b { color: #0b0a09; }
+.leaflet-tooltip.atip { background: rgba(11,10,9,.94); border: 1px solid var(--line); color: var(--ink); font: 500 12px/1.5 var(--sans); letter-spacing: .04em; box-shadow: none; }
 .leaflet-tooltip.atip::before { display: none; }
 
 /* 月ごとの特集。バックナンバーの一覧 */
@@ -386,8 +421,492 @@ footer.site .note { color: var(--ink-3); font-size: 11px; line-height: 2; max-wi
   .cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 24px 14px; }
   .card .nm { font-size: 15px; }
   .card .hook { font-size: 12px; }
-  .heroPhotos { height: 52vh; }
-  .heroPhotos img:nth-child(n+4) { display: none; }
+  /* 扉はスマホでは枚数を減らす（build_hero.js が sp の印を付ける）*/
 
   section { padding-block: 44px 0; }
+}
+
+/* ============================================================
+   仕上げ。ここから下は「作りの細かさ」のための層で、
+   上の土台を打ち消さずに重ねている（後から足したので、重なる所はこちらが勝つ）。
+   狙いは一つ ― 1,360軒を拾い読みする邪魔をせずに、丁寧に作られていると分かること。
+   ============================================================ */
+
+:root {
+  /* 色の温度をそろえる。文字（f0ece5 / b3ada2 / 7d786f）も金も暖色なのに、
+     地と罫だけ青寄りの灰だった。混ざると「選んでいない色」に見えるので、
+     地と罫を墨寄りの暖色に振る。見た目はほとんど変わらないが、画面全体が落ち着く */
+  --ground: #0b0a09; --panel: #141210; --line: #262320;
+  --line-soft: #1b1916;          /* 罫のうち、特に目立たせたくないもの */
+  --gold-line: rgba(194,161,92,.42);   /* 金の細線。各所に直書きされていた値を一本化 */
+  /* 動きの曲線。出だしが速く、終わりが長い。止まり際が静かに見える */
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+/* 選んだ文字。既定の青はこの画面の中で一か所だけ別世界になる */
+::selection { background: rgba(194,161,92,.28); color: var(--ink); }
+/* 巻き取りの棒も画面の一部として扱う */
+* { scrollbar-width: thin; scrollbar-color: #3a352d transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: #302b25; border: 3px solid var(--ground); border-radius: 999px; }
+*::-webkit-scrollbar-thumb:hover { background: #4a4238; }
+/* 見出しは行末を揃え、本文は孤立行を作らない */
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+/* 焦点の輪。1pxの実線だと細すぎて、押した所が分かりにくかった */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 1px; }
+
+/* -- 入ってくる動き ------------------------------------------
+   下から入ってくるものを、入ってきた順に静かに出す。
+   **台本を使わない。** 巻きに合わせて動く CSS（animation-timeline: view()）だけで書く。
+   はじめは JavaScript で「画面に入ったら .in を付ける」形にしたが、これは
+   「付け忘れたら本文が永久に透明」という壊れ方を抱える。1,360ページの店帳で
+   表が丸ごと消えるのは出してはいけない壊れ方なので、その芽ごと断った。
+   この書き方なら、対応していない閲覧器では @supports の中が丸ごと無視されて、
+   ただの静かなページになる。透明のまま残ることが起こり得ない。
+
+   範囲は entry 0%〜46%。画面に入り始めてから半分くらいで出来上がる。
+   開いた時点ですでに画面の中にある物は entry を過ぎているので、最初から出来上がった姿で出る
+   ―― 送らない人にも、共有された一枚絵にも、最初の画面が完成して見える */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main > section, main > .issue, .store > *, .cards > li, .issues > li, .pn {
+      animation: rise .01s linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 46%;
+    }
+    /* 扉は最初から完成していてほしいので動かさない */
+    .hero, .hero * { animation: none; }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  }
+}
+
+/* -- 見出しを帳面の罫に乗せる --------------------------------
+   「帳」なので、節の頭は帳面の罫に見出しが乗っている形にする。
+   飾りではなく、どこで話が変わったかの印 */
+main > section > .eyebrow,
+main > .issue > .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+main > section > .eyebrow::after,
+main > .issue > .eyebrow::after { content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--gold-line), transparent 68%); }
+
+/* -- 文字の階段 ----------------------------------------------
+   本文15px/1.9 は読みやすいが、見出しとの差が小さく、どこも同じ調子に見えていた。
+   大きい所をもう一段大きく、小さい所をもう一段静かにして、段差をはっきりさせる */
+h1 { letter-spacing: .03em; }
+h2 { letter-spacing: .05em; }
+.sec-lead { font-size: 14.5px; line-height: 1.95; color: var(--ink-2); }
+.eyebrow { font-weight: 500; }
+
+/* -- 一覧の札 ------------------------------------------------
+   写真がこのサイトの持ち物なので、札そのものは引く。
+   触ったときだけ写真が起き上がり、店名に金の下線が引かれる */
+.card .ph { border-radius: 2px; }
+.card .ph::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(11,10,9,0) 56%, rgba(11,10,9,.42) 100%);
+  opacity: .9; transition: opacity .6s var(--ease); }
+.card a:hover .ph::after { opacity: .35; }
+.card .ph img { transition: transform .9s var(--ease), filter .9s var(--ease); }
+.card a:hover .ph img { transform: scale(1.045); }
+/* 店名の下線は、触ったときに左から引かれる。色を変えるだけより、触った実感が出る */
+.card .nm { display: inline; background-image: linear-gradient(var(--gold), var(--gold));
+  background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 1px;
+  transition: background-size .45s var(--ease), color .3s var(--ease); padding-bottom: 2px; }
+.card a:hover .nm { background-size: 100% 1px; }
+/* 札の中身は写真と同じだけ間を取る。前は写真の直後だけ詰まっていた */
+.card .kicker { margin-top: 15px; }
+
+/* -- 本文中の繋がり ------------------------------------------ */
+.more-link a, #about a, .store .story a { background-image: linear-gradient(var(--gold-line), var(--gold-line));
+  background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 1px;
+  transition: background-size .35s var(--ease), color .3s var(--ease); text-decoration: none; }
+.more-link a:hover, #about a:hover, .store .story a:hover { color: var(--gold); background-size: 100% 2px; }
+
+/* -- 上の帯 --------------------------------------------------
+   触った所が金に変わるだけでなく、下に細い線が引かれる */
+header.site nav a { position: relative; padding-bottom: 3px; transition: color .3s var(--ease); }
+header.site nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease); }
+header.site nav a:hover::after { transform: scaleX(1); }
+header.site .logo { transition: letter-spacing .5s var(--ease); }
+header.site .logo:hover { letter-spacing: .18em; }
+
+/* -- 店のページ ----------------------------------------------
+   大きい写真のあとに題字が来る形は変えない。
+   変えるのは間の取り方と、写真の落ち着き */
+.store .cover { position: relative; }
+.store .cover img { border-radius: 2px; }
+.store .head { padding-top: 38px; }
+.store .head h1 { margin-top: 2px; }
+/* 一行めの謳い文句は本文より大きく、引用のように置く */
+.store .hook { position: relative; padding-left: 20px; }
+.store .hook::before { content: ""; position: absolute; left: 0; top: .35em; bottom: .35em; width: 2px;
+  background: linear-gradient(var(--gold), var(--gold-soft)); }
+/* 事実の表。数字は桁を揃える（値段と時間が並ぶので、揃っていないと読みにくい） */
+.facts td { font-variant-numeric: tabular-nums; }
+.facts tr:last-child td { border-bottom: 0; }
+.facts tr { transition: background .3s var(--ease); }
+.facts tr:hover td, .facts tr:hover th { color: var(--ink); }
+/* 外に出る繋がり。塗りつぶしに変わるときに、文字色も一緒に動かす */
+.links a { transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease); }
+
+/* -- 数字 ----------------------------------------------------
+   桁を揃える。揃っていないと「数えた」感じが出ない */
+.nums b, .bars b, .tags span, .card .price, .voice .sc b { font-variant-numeric: tabular-nums; }
+.bars i { transition: background .3s var(--ease), transform .5s var(--ease); transform-origin: left; }
+
+/* -- 前後の店 ------------------------------------------------ */
+.pn a { transition: border-color .3s var(--ease), background .3s var(--ease); }
+.pn a:hover { background: rgba(194,161,92,.05); }
+
+/* -- 画面が広いとき ------------------------------------------
+   1,060pxの柱が暗い原の真ん中に細く立っているだけに見えていた。
+   広い画面では本文の柱を少し広げ、間をもう一段ゆったり取る */
+/* -- 店のページの開き方 --------------------------------------
+   測ったら、1440x900 で写真が666px を占め、店名が 747px ―― 画面の外に出ていた。
+   開いて最初に見えるのが「名前のない写真」になっていたので、写真を少し抑えて、
+   ジャンル・店名・一行めまでが最初の画面に収まるようにする。
+   写真は切り抜かない（縦長の丼が上下を削られる）という元の決まりはそのまま */
+@media (min-width: 900px) {
+  .store .cover img { max-height: 58vh; }
+  .store .head { padding-top: 30px; }
+}
+/* 写真が何枚もある店は、1枚目を大きく置く。全部同じ大きさだと、
+   どれが代表なのか分からない板になる。3枚以上あるときだけ */
+@media (min-width: 760px) {
+  .gallery { grid-template-columns: repeat(4, 1fr); }
+  .gallery:has(img:nth-child(3)) img:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: 1; }
+  .gallery:has(img:nth-child(3)) img { aspect-ratio: 1; }
+}
+.gallery img { border-radius: 2px; transition: filter .6s var(--ease); filter: brightness(.94); }
+.gallery img:hover { filter: brightness(1.04); }
+
+/* -- 事実の表を仕様書らしく --------------------------------
+   見出しの語（どこから・営業時間・予算）が本文と同じ太さで並んでいて、
+   どちらが見出しか一目で分からなかった。見出しを静かに、値をはっきりさせる */
+.facts th { color: var(--ink-3); font-weight: 500; letter-spacing: .16em; white-space: nowrap; }
+.facts td { color: var(--ink); }
+.facts tr:first-child th, .facts tr:first-child td { padding-top: 0; }
+
+/* -- 一覧の頭 ------------------------------------------------
+   ジャンルや街の一覧は、題字のすぐ下に札が並ぶだけだった。
+   題字と件数の間に息を入れて、読み物の扉らしくする */
+.listhead h1 .n { display: inline-block; margin-left: 16px; padding-left: 16px;
+  border-left: 1px solid var(--line); vertical-align: middle; }
+.listhead .sec-lead { margin-top: 16px; }
+
+/* -- 殿堂（線は1本だけ、厳しく）------------------------------
+   順位は付けない決まりなので、数字でも色の濃淡でも序列を作らない。
+   代わりに「なぜ」を読ませる。理由の引用だけ、少し大きく置く */
+.whygo .reason { letter-spacing: .03em; }
+
+/* -- 触れないときの作り --------------------------------------
+   指で触る画面では hover が無いので、触った瞬間の手応えだけ残す */
+@media (hover: none) {
+  .card a:hover .ph img { transform: none; }
+  .card a:active .ph img { transform: scale(1.02); }
+  .card .nm { background-size: 0 1px; }
+}
+
+/* -- 指で触る画面 --------------------------------------------
+   測って分かったこと。上の帯の「街」は 13x26px しかなく、指で狙える大きさではなかった
+   （目安は 44x44px）。札や丸ボタンも 30px 前後で、どれも小さい。
+   見た目はほとんど変えずに、触れる面だけ広げる。
+   負の余白で元の位置に戻しているので、行の組みはずれない */
+@media (max-width: 640px) {
+  header.site .bar { padding-block: 2px; }
+  header.site nav { gap: 2px; align-items: center; }
+  header.site nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; }
+  header.site nav a::after { left: 10px; right: 10px; bottom: 9px; }
+  header.site .logo { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* 押せる物は高さ44pxを下回らせない */
+  .chip, .ex, .mbtns button, .more, .tags a, .links a, .pn a, .searchbar .clear, .how .cond {
+    min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .pn a { justify-content: flex-start; }
+  .searchbar .clear { width: 44px; border-radius: 4px; }
+
+  /* 本文の中の繋がりは、行を押し広げずに触れる面だけ広げる */
+  .eyebrow a, .more-link a { display: inline-block; padding: 9px 5px; margin: -9px -5px; }
+
+  /* 写真が画面のほとんどを占めて、店名が下端ギリギリ（812pxの画面で737px）だった。
+     開いて最初に見えるものに名前が無いのは扉として弱い。写真を抑えて名前まで見せる */
+  .store .cover img { max-height: 52vh; }
+  .store .head { padding-top: 24px; }
+}
+
+/* -- 紙の目 --------------------------------------------------
+   真っ黒な面はどこまでも「画面」で、物の手ざわりがない。
+   「帳」なのだから、うっすら紙の目を敷く。濃さは2.5%で、言われないと気づかない程度。
+   暗い所の帯状のムラ（グラデーションの段）も、これで目立たなくなる。
+   触れないよう pointer-events は切ってある */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+@media print { body::after { display: none; } }
+
+/* -- 数えたもの ----------------------------------------------
+   6年ぶんの数字は、このサイトで唯一「全体」を見せる所。
+   明朝の数字を大きく、桁を揃えて、帳面の〆のように置く */
+.nums b { font-size: clamp(30px, 4.6vw, 40px); letter-spacing: .01em; }
+.nums li { border-left: 1px solid var(--line); transition: border-color .4s var(--ease); }
+.nums li:hover { border-left-color: var(--gold-line); }
+
+/* -- 残っていた小さい触れ先 ----------------------------------
+   測って見つけたもの。棒グラフの行、殿堂の見出しの繋がり、
+   地図の拡大縮小（Leafletの既定が30px）、湯帳の絞り込みの四角 */
+@media (max-width: 640px) {
+  .bars .row { min-height: 44px; }
+  .whysec h2 a { display: inline-block; padding: 7px 0; }
+  .leaflet-bar a { width: 44px !important; height: 44px !important; line-height: 44px !important; font-size: 20px !important; }
+  /* .spa-filter そのものが <label>。中の label を指しても当たらない
+     （書いたときに取り違えていて、触れる面が22pxのままだった） */
+  label.spa-filter { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; }
+  .spa-filter input { width: 22px; height: 22px; flex: none; }
+}
+
+/* -- 店の扉を見開きにする ------------------------------------
+   広い画面では、写真の下に店名が続く縦並びをやめて、
+   左に名前・右に写真の見開きにする。雑誌の扉と同じ組み方。
+   測ったら、縦並びだと写真が画面の3分の2を占めて、最初に見えるのが
+   「名前のない写真」になっていた。横に並べると、どの店の何なのかが一目で分かる。
+
+   組み方。.store を2列にして、既定は全幅。写真と名前だけ1行目の左右に置く。
+   行を明示しているので、間に穴が空かない（自動配置に任せると歯抜けになる）。
+   写真の無い店では見開きにしない（右が空いた妙な間になる）ので :has で見る */
+@media (min-width: 1040px) {
+  .store:has(> .cover) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    column-gap: 56px; align-items: center; }
+  .store:has(> .cover) > * { grid-column: 1 / -1; }
+  .store:has(> .cover) > .cover { grid-column: 2; grid-row: 1; margin: 0; justify-content: flex-start; }
+  .store:has(> .cover) > .cover img { max-height: 70vh; }
+  .store:has(> .cover) > .head { grid-column: 1; grid-row: 1;
+    padding-top: 0; padding-bottom: 0; border-bottom: 0; }
+  /* 見開きの下に、話の変わり目として一本だけ引く */
+  .store:has(> .cover) > .head { position: relative; }
+  .store:has(> .cover) > .whygo, .store:has(> .cover) > .story,
+  .store:has(> .cover) > .gallery, .store:has(> .cover) > .voice { margin-top: 46px; }
+}
+
+/* -- 日本語の行の折り方 --------------------------------------
+   見開きにしたら「広尾 大衆焼／肉 暴飲暴食」と、焼肉が真ん中で割れた。
+   日本語は既定だとどこででも折れるので、語の途中で切れる。
+   word-break: auto-phrase は文節で折ってくれる（対応していない閲覧器は無視する）。
+   店名・見出し・札の名前など、人が読む固有名詞の出る所に効かせる */
+h1, h2, h3, .card .nm, .mlist .t b, .pn b, .issues .nm, .store .hook, .whygo .reason, .voice .vhead {
+  word-break: auto-phrase; line-break: strict; }
+/* 見開きの題字は列が狭いので、ひと回り小さく始める */
+@media (min-width: 1040px) {
+  .store:has(> .cover) { grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr); }
+  .store:has(> .cover) > .head h1 { font-size: clamp(28px, 3.1vw, 42px); }
+}
+
+/* -- 湯帳の扉 ------------------------------------------------
+   **壊れていたのを直す。**
+   店帳の扉を canvas に作り直したとき、共通のCSSから .heroPhotos（湯帳の扉）の
+   組み方が落ちていた。残ったのは canvas 用の .heroText { opacity: 0 } だけで、
+   これを 1 に戻す台本は店帳にしかない。結果、湯帳のトップは
+   「写真7枚が縦に積み上がった4,000pxの柱の底に、透明な題字」になっていた。
+   測って分かったこと: h1 の位置 y=4161、不透明度 0 ―― 題字が一度も出ない。
+
+   直し方は canvas を持ち込まず、写真そのものを帯にする。
+   7枚を縦長の短冊に切って横に並べ、その上に題字を置く。
+   湯は自分で中を撮れないので、外観と暖簾の短冊が並ぶ形になる */
+.hero:has(.heroPhotos) { height: auto; }
+.heroPhotos { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  gap: 2px; height: min(64vh, 540px); overflow: hidden; background: var(--ground); }
+.heroPhotos img { width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.52) saturate(.92); transition: filter 1.2s var(--ease); }
+.hero:has(.heroPhotos):hover .heroPhotos img { filter: brightness(.6) saturate(1); }
+/* 題字は出しっぱなし。動かす台本が無いので、待たせると永久に出ない */
+.hero:has(.heroPhotos) .heroText { opacity: 1; transform: none; transition: none; }
+/* 狭い画面では短冊が細くなりすぎる（375pxで7枚＝1枚53px）。4枚に減らす */
+@media (max-width: 700px) {
+  .heroPhotos { height: min(58vh, 420px); }
+  .heroPhotos img:nth-child(n+5) { display: none; }
+}
+@media (max-width: 420px) { .heroPhotos img:nth-child(n+4) { display: none; } }
+
+/* -- 扉を画面いっぱいに ---------------------------------------
+   扉が本文の柱（1,140px）の幅しかなく、広い画面では左右に黒い余りが出ていた。
+   扉だけは端から端まで使う。
+   100vw は巻き取りの棒のぶんだけ画面より広いので、そのままだと横に少し溢れる。
+   body を overflow-x: clip で止める。hidden と違って巻き取る箱を作らないので、
+   上の帯の貼り付き（position: sticky）はそのまま効く */
+html, body { overflow-x: clip; }
+.hero { margin-inline: calc(50% - 50vw); }
+
+/* -- 一覧の扉（短冊の帯）--------------------------------------
+   ジャンル・街・殿堂の頭。湯帳の扉と同じ型を使い回しているので、
+   ここで直すのは高さと題の組みだけ。
+   本文がすぐ下に続くので、トップの扉よりは低く取る */
+/* 帯の写真は、扉ほど沈めない。題字の読みやすさは下からの暗がりで作る */
+.listband .heroPhotos { height: min(38vh, 300px); }
+.listband .heroPhotos img { filter: brightness(.68) saturate(.95); }
+.listband:hover .heroPhotos img { filter: brightness(.8) saturate(1); }
+/* 題の左端は、下に続く札の左端と揃える。
+   帯は画面いっぱい、本文は柱（1,060px／広い画面では1,140px）なので、
+   その差を計算して合わせる。20px は柱の内側の余白ぶん。
+   ここがずれていると（測ったら145pxと165pxで20pxずれていた）、
+   帯と本文が別の紙に見える */
+.listband .heroText { align-content: end; justify-items: start; text-align: left;
+  padding: 0 max(20px, calc(50% - 510px)) 30px; }
+/* -- 一覧の下位札を一行に（スマホ）--------------------------
+   ラーメンは下位ジャンルが20個あり、縦に8行＝416px になっていた。
+   測ったら最初の店が Y=847（1画面ぶん下）で、
+   「ラーメンを開いたのに、ラーメンが1軒も見えない」状態だった。
+   地図の絞り込み（#mchips）と同じく、横に流して一行に収める。
+   札そのものは消さない（押せる物を隠すと、あることに気づけない） */
+@media (max-width: 700px) {
+  .listnav .tags { flex-wrap: nowrap; overflow-x: auto; margin-inline: -20px; padding: 0 20px 2px;
+    scrollbar-width: none; scroll-snap-type: x proximity; }
+  .listnav .tags::-webkit-scrollbar { display: none; }
+  .listnav .tags li { flex: none; scroll-snap-align: start; }
+  .listnav .tags a { white-space: nowrap; }
+}
+
+/* -- スマホの扉の高さ ----------------------------------------
+   縦長の画面に、横長に近い日本（縦横比 0.88）を収めると、横幅で頭打ちになる。
+   測ったら 375x812 で日本は 330x376＝舞台の高さの49%、上下に194pxずつ黒が余っていた。
+   日本はこれ以上大きくできない（横幅の限界）ので、舞台のほうを低くして詰める。
+   画面いっぱいにはしない。下に次の節が少し覗くほうが、
+   「ここで終わりではない」と分かって、巻く手がかりにもなる */
+@media (max-width: 700px) {
+  .heroStage { height: min(calc(100svh - var(--hdr, 0px)), 580px); }
+}
+/* 横に倒したスマホ。縦が足りないので、日本が潰れないよう低めに抑える */
+@media (max-height: 520px) and (orientation: landscape) {
+  .heroStage { height: calc(100svh - var(--hdr, 0px)); }
+}
+
+/* -- スマホの札は一段組みにする ------------------------------
+   測って分かったこと。375px の画面だと札は161px幅で、
+   一行めの文が「1行あたり9〜13字」でしか組めていなかった
+   （日本語が読みやすいのは20〜35字）。細い帯に字が詰まって見える。
+   札の高さも 290/339/353/356 とばらばらで、格子が櫛の歯のようになっていた。
+
+   二段に無理やり収めるのをやめて、一段にする。写真は335px幅になり、
+   面積で2.3倍。文は1行28字前後で組める。高さも揃う。
+   このサイトは写真が持ち物なので、小さい画面こそ写真を大きく出す */
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; gap: 38px; }
+  .card .kicker { font-size: 11.5px; letter-spacing: .12em; margin-top: 16px; }
+  .card .nm { font-size: 19px; line-height: 1.55; }
+  .card .hook { font-size: 14px; line-height: 1.9; margin-top: 8px; }
+  .card .price { font-size: 12.5px; margin-top: 10px; }
+  .card .men, .card .whytag { font-size: 11.5px; }
+}
+
+/* -- 切り欠きのある画面 --------------------------------------
+   viewport-fit=cover にして、扉の写真を画面の端（ステータスバーの下）まで出す。
+   そのぶん、文字の入る所には切り欠きぶんの余白を足す。
+   env() は切り欠きの無い機械やパソコンでは 0 なので、見た目は変わらない。
+   max() を使っているのは、もとの20pxより狭くしないため */
+header.site .bar { padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+main { padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+footer.site { padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+.listband .heroText { padding-left: max(20px, env(safe-area-inset-left, 0px), calc(50% - 510px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px), calc(50% - 510px)); }
+/* -- 地図のページ（スマホ）----------------------------------
+   測ったら、地図が始まるのが Y=352 だった（帯49＋題34＋説明68＋ボタン44＋絞り込み46）。
+   地図のページなのに、画面の4割以上が地図の手前で埋まっている。
+   説明は消さずに小さくして、地図そのものを高くする。
+   56vh → 62svh。vh だと閲覧器の帯が隠れる前提の高さになり、
+   開いた直後は地図の下が切れる */
+@media (max-width: 800px) {
+  .maphead { padding-block: 16px 0; }
+  .maphead h1 { font-size: clamp(22px, 6.4vw, 30px); }
+  .maphead .sec-lead { font-size: 12px; line-height: 1.75; margin-bottom: 10px; }
+  .mbtns { margin-top: 10px; }
+  /* 62svh だと地図の下端が画面を24pxはみ出して、切れた地図に見えた。
+     見出しを詰めたぶんと合わせて、ちょうど収まる高さにする */
+  #map { height: 58svh; order: 1; }
+}
+
+@media (min-width: 1200px) {
+  .listband .heroText { padding-left: max(20px, env(safe-area-inset-left, 0px), calc(50% - 550px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px), calc(50% - 550px)); }
+}
+@media (max-width: 640px) {
+  header.site .bar { padding-top: calc(2px + env(safe-area-inset-top, 0px)); }
+}
+
+@media (min-width: 1200px) { .listband .heroText { padding-inline: max(20px, calc(50% - 550px)); } }
+.listband .heroText::before { background: linear-gradient(0deg, rgba(11,10,9,.78) 0%, rgba(11,10,9,.32) 46%, rgba(11,10,9,0) 86%); }
+.listband .heroText h1 { font-size: clamp(28px, 4.6vw, 46px); }
+/* 件数は題の下に小さく置く。横に並べると題より目立ってしまう */
+.listband .heroText h1 .n { display: block; margin: 10px 0 0;
+  font: 500 12px/1 var(--sans); letter-spacing: .18em; color: var(--ink-2); }
+@media (max-width: 700px) {
+  .listband .heroPhotos { height: min(32vh, 240px); }
+  .listband .heroText { padding-bottom: 22px; }
+}
+
+/* 短冊の下の行（下位ジャンルの札、殿堂の前書き）。
+   扉のすぐ下なので、見出しのぶんの間は取らない */
+.listnav { padding-block: 28px 0; }
+.listnav .sec-lead { margin: 0; max-width: 64ch; }
+.listnav .tags { margin-top: 20px; }
+.listnav + section { padding-block: 44px 0; }
+
+/* -- 一覧の下位札を一行に（スマホ）--------------------------
+   ラーメンは下位ジャンルが20個あり、縦に8行＝416px になっていた。
+   測ったら最初の店が Y=847（1画面ぶん下）で、
+   「ラーメンを開いたのに、ラーメンが1軒も見えない」状態だった。
+   地図の絞り込み（#mchips）と同じく、横に流して一行に収める。
+   札そのものは消さない（押せる物を隠すと、あることに気づけない） */
+@media (max-width: 700px) {
+  .listnav .tags { flex-wrap: nowrap; overflow-x: auto; margin-inline: -20px; padding: 0 20px 2px;
+    scrollbar-width: none; scroll-snap-type: x proximity; }
+  .listnav .tags::-webkit-scrollbar { display: none; }
+  .listnav .tags li { flex: none; scroll-snap-align: start; }
+  .listnav .tags a { white-space: nowrap; }
+}
+
+/* -- スマホの扉の高さ ----------------------------------------
+   縦長の画面に、横長に近い日本（縦横比 0.88）を収めると、横幅で頭打ちになる。
+   測ったら 375x812 で日本は 330x376＝舞台の高さの49%、上下に194pxずつ黒が余っていた。
+   日本はこれ以上大きくできない（横幅の限界）ので、舞台のほうを低くして詰める。
+   画面いっぱいにはしない。下に次の節が少し覗くほうが、
+   「ここで終わりではない」と分かって、巻く手がかりにもなる */
+@media (max-width: 700px) {
+  .heroStage { height: min(calc(100svh - var(--hdr, 0px)), 580px); }
+}
+/* 横に倒したスマホ。縦が足りないので、日本が潰れないよう低めに抑える */
+@media (max-height: 520px) and (orientation: landscape) {
+  .heroStage { height: calc(100svh - var(--hdr, 0px)); }
+}
+
+/* -- スマホの札は一段組みにする ------------------------------
+   測って分かったこと。375px の画面だと札は161px幅で、
+   一行めの文が「1行あたり9〜13字」でしか組めていなかった
+   （日本語が読みやすいのは20〜35字）。細い帯に字が詰まって見える。
+   札の高さも 290/339/353/356 とばらばらで、格子が櫛の歯のようになっていた。
+
+   二段に無理やり収めるのをやめて、一段にする。写真は335px幅になり、
+   面積で2.3倍。文は1行28字前後で組める。高さも揃う。
+   このサイトは写真が持ち物なので、小さい画面こそ写真を大きく出す */
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; gap: 38px; }
+  .card .kicker { font-size: 11.5px; letter-spacing: .12em; margin-top: 16px; }
+  .card .nm { font-size: 19px; line-height: 1.55; }
+  .card .hook { font-size: 14px; line-height: 1.9; margin-top: 8px; }
+  .card .price { font-size: 12.5px; margin-top: 10px; }
+  .card .men, .card .whytag { font-size: 11.5px; }
+}
+
+@media (min-width: 1200px) {
+  main { max-width: 1140px; }
+  header.site .bar { max-width: 1140px; }
+  section { padding-block: 72px 0; }
+  .cards { gap: 42px 28px; }
 }

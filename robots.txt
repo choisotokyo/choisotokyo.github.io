@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://choisotokyo.github.io/sitemap.xml
+Sitemap: https://choisotokyo.github.io/spa/sitemap.xml
