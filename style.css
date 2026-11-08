@@ -469,10 +469,16 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 
    範囲は entry 0%〜46%。画面に入り始めてから半分くらいで出来上がる。
    開いた時点ですでに画面の中にある物は entry を過ぎているので、最初から出来上がった姿で出る
-   ―― 送らない人にも、共有された一枚絵にも、最初の画面が完成して見える */
+   ―― 送らない人にも、共有された一枚絵にも、最初の画面が完成して見える
+
+   動かすのは小さな物だけ。節（main > section、高さ5,000px前後）や店の「近い店・同じ系統の店」（2,800px）を
+   丸ごと動かしていたら、スマホで下へ巻くと中身が出なくなった。画面の何倍もある箱を透明から
+   出し、その中の札もまた別に動かす入れ子で、閲覧器が描くのを諦める。
+   節は見出しだけを動かし、中の札はそれぞれが自分で入ってくる */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    main > section, main > .issue, .store > *, .cards > li, .issues > li, .pn {
+    main > section > :is(.eyebrow, h2), main > .issue > :is(.eyebrow, h2),
+    .store > :not(.related), .cards > li, .issues > li, .pn {
       animation: rise .01s linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 46%;
